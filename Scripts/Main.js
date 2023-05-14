@@ -1,5 +1,5 @@
 // File: Main.js
-// Date: 2023-05-09
+// Date: 2023-05-14
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -90,10 +90,12 @@ function getIdDivButton()
 ///////////////////////// End Get Id And Element Functions ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-// User clicked merge files
+// User clicked merge files. 
+// The JavaScript files will be merged to one file and written to the server directory
+// /www/JazzScripts/. The directory name is defined in file MergeLoginLogout.php.
 function eventMergeFiles()
 {
-    var file_name = '../../JazzScripts/Controls_20230509.js';
+    var file_name = 'Controls_20230514.js';
 
     $.post
       ('PhpMerge/MergeControls.php',
@@ -104,7 +106,8 @@ function eventMergeFiles()
 		{
             if (status_save == "success")
             {
-                // alert(data_save);
+                alert("JavaScript files merged to " + file_name + 
+                " saved to server directory /www/JavaScripts/.");
             }
             else
             {

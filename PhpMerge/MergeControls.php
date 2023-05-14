@@ -39,15 +39,21 @@ $file_name = $_POST['file_name'];
 
 $file_content = file_get_contents('../Scripts/JazzButton.js');
 $file_content .= "\n" . file_get_contents('../Scripts/JazzTextBox.js');
+$file_content .= "\n" . file_get_contents('../Scripts/JazzControlCheckBox.js');
+$file_content .= "\n" . file_get_contents('../Scripts/JazzDropdown.js');
 $file_content .= "\n" . file_get_contents('../Scripts/UtilControls.js');
 
-$fp = fopen($file_name, 'w');
-if(!$fp)
-    die('Could not create / open text file for writing.');
-if(fwrite($fp, $file_content) === false)
-    die('Could not write to text file.');
+$dir_name= '../../JazzScripts/';
 
-echo 'Files have been merged.';
+$file_name_full = $dir_name . $file_name;
+
+$fp = fopen($file_name_full, 'w');
+if(!$fp)
+    die('Could not create / open js file for writing.');
+if(fwrite($fp, $file_content) === false)
+    die('Could not write to js file.');
+
+echo 'JavaScript files have been merged.';
  
 ?>
  

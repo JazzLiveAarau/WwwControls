@@ -41,6 +41,8 @@ $file_content = file_get_contents('../Scripts/JazzButton.js');
 $file_content .= "\n" . file_get_contents('../Scripts/JazzTextBox.js');
 $file_content .= "\n" . file_get_contents('../Scripts/JazzControlCheckBox.js');
 $file_content .= "\n" . file_get_contents('../Scripts/JazzDropdown.js');
+$file_content .= "\n" . file_get_contents('../Scripts/JazzControlUploadFile.js');
+$file_content .= "\n" . file_get_contents('../Scripts/JazzControlDatePicker.js');
 $file_content .= "\n" . file_get_contents('../Scripts/UtilControls.js');
 
 $dir_name= '../../JazzScripts/';

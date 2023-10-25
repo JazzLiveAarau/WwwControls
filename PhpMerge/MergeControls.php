@@ -44,6 +44,8 @@ $file_content .= "\n" . file_get_contents('../Scripts/JazzDropdown.js');
 $file_content .= "\n" . file_get_contents('../Scripts/JazzControlUploadFile.js');
 $file_content .= "\n" . file_get_contents('../Scripts/JazzControlDatePicker.js');
 $file_content .= "\n" . file_get_contents('../Scripts/UtilControls.js');
+$file_content .= "\n" . file_get_contents('../Scripts/GridList.js');
+$file_content .= "\n" . file_get_contents('../Scripts/UtilityHtml.js');
 
 $dir_name= '../../JazzScripts/';
 

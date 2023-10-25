@@ -1,12 +1,19 @@
 // File: Main.js
-// Date: 2023-06-11
+// Date: 2023-10-25
 // Author: Gunnar Lidén
 
 // Inhalt
 // =============
 //
-// Main function for the test of member login and logout controls
-// This function 
+// Functions for the test of controls and for the function eventMergeFiles that uploads 
+// the JavaScript files to the server directory JazzScripts. In eventMergeFiles is also
+// the name of the merge file defined.
+//
+// The JavaScripts files that shall be merged are defined in the file MergeControls.php
+//
+// Files from the local directory WwwControls shall be uploaded to the server direcory
+// www/Controls. Please note that the merge PHP function only works for the uploaded
+// files, i.e. the HTML web page https://www.jazzliveaarau.ch/Controls/TestControls.htm
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
@@ -95,7 +102,7 @@ function getIdDivButton()
 // /www/JazzScripts/. The directory name is defined in file MergeLoginLogout.php.
 function eventMergeFiles()
 {
-    var file_name = 'Controls_20230611.js';
+    var file_name = 'Controls_20231025.js';
 
     $.post
       ('PhpMerge/MergeControls.php',

@@ -1,5 +1,5 @@
 // File: UtilityHtml.js
-// Date: 2023-10-24
+// Date: 2023-10-26
 // Author: Gunnar Lidén
 
 // File content
@@ -668,6 +668,70 @@ class UtilHtml
         return ret_img_str;
     
     } // getImgString
+
+        // Returns string for an image
+    // Input parameters
+    // i_file_name:  File name with path of the image 
+    // i_alt:        Alternative image text
+    // i_id:         Element identity 
+    // i_style_str:  Style string
+    // i_width:      Image width
+    // i_event_fctn: Event function string
+    // i_title       Title string will be tooltip in desktop computers
+    static getImgStyleString(i_file_name, i_alt, i_id, i_style_str, i_width, i_event_fctn, i_title)
+    {
+        var ret_img_str = '';
+    
+        if (i_file_name.length == 0)
+        {
+            alert("getImgStyleString No input image file name");
+    
+            return ret_img_str;
+        }
+    
+        if (i_alt.length == 0)
+        {
+            alert("getImgStyleString Input alternative text is empty");
+    
+            return ret_img_str;
+        }
+    
+        ret_img_str =  ret_img_str + '<img '; 
+    
+        ret_img_str =  ret_img_str + 'src= "' + i_file_name + '" ';
+    
+        ret_img_str =  ret_img_str + 'alt= "' + i_alt + '" ';
+    
+        if (i_id.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'id= "' + i_id + '" ';
+        }
+    
+        if (i_style_str.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'style= "' + i_style_str + '" ';
+        }
+    
+        if (i_width.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'width= "' + i_width + '" ';
+        }
+    
+        if (i_event_fctn.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'onclick= "' + i_event_fctn + '" ';
+        }
+    
+        if (i_title.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'title= "' + i_title + '" ';
+        }    
+    
+        ret_img_str =  ret_img_str + ' >'; 
+    
+        return ret_img_str;
+    
+    } // getImgStyleString
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Image Elements ////////////////////////////////////////////////

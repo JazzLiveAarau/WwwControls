@@ -1,5 +1,5 @@
 // File: Main.js
-// Date: 2023-10-25
+// Date: 2023-11-29
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -102,7 +102,7 @@ function getIdDivButton()
 // /www/JazzScripts/. The directory name is defined in file MergeLoginLogout.php.
 function eventMergeFiles()
 {
-    var file_name = 'Controls_20231025.js';
+    var file_name = 'Controls_20231129.js';
 
     $.post
       ('PhpMerge/MergeControls.php',

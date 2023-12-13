@@ -1,5 +1,5 @@
 // File: Main.js
-// Date: 2023-11-29
+// Date: 2023-12-13
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -12,8 +12,8 @@
 // The JavaScripts files that shall be merged are defined in the file MergeControls.php
 //
 // Files from the local directory WwwControls shall be uploaded to the server direcory
-// www/Controls. Please note that the merge PHP function only works for the uploaded
-// files, i.e. the HTML web page https://www.jazzliveaarau.ch/Controls/TestControls.htm
+// www/WwwControls. Please note that the merge PHP function only works for the uploaded
+// files, i.e. the HTML web page https://www.jazzliveaarau.ch/WwwControls/TestControls.htm
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Global Parameters /////////////////////////////////////////
@@ -99,7 +99,7 @@ function getIdDivButton()
 
 // User clicked merge files. 
 // The JavaScript files will be merged to one file and written to the server directory
-// /www/JazzScripts/. The directory name is defined in file MergeLoginLogout.php.
+// /www/JazzScripts/. The directory name is defined in file MergeControls.php.
 function eventMergeFiles()
 {
     var file_name = 'Controls_20231129.js';

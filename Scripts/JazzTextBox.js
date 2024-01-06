@@ -1,5 +1,5 @@
 // File: JazzTextBox.js
-// Date: 2023-05-08
+// Date: 2024-01-06
 // Author: Gunnar Lidén
 
 // File content
@@ -135,6 +135,30 @@ class JazzTextBox
         return this.m_value;
 
     } // getValue    
+
+    // Set focus
+    setFocus()
+    {
+        var element_html = this.getHtmlElement();
+
+        if (null != element_html)
+        {
+            element_html.focus();
+        }
+
+    } // setFocus
+
+    // Lose focus
+    loseFocus()
+    {
+        var element_html = this.getHtmlElement();
+
+        if (null != element_html)
+        {
+            element_html.blur();
+        }
+
+    } // loseFocus
     
     // Set functions for the layout member variables
     // =============================================

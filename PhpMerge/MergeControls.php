@@ -47,6 +47,7 @@ $file_content .= "\n" . file_get_contents('../Scripts/UtilControls.js');
 $file_content .= "\n" . file_get_contents('../Scripts/GridList.js');
 $file_content .= "\n" . file_get_contents('../Scripts/UtilityHtml.js');
 $file_content .= "\n" . file_get_contents('../Scripts/DisplayImage.js');
+$file_content .= "\n" . file_get_contents('../Scripts/JazzTextArea.js');
 
 $dir_name= '../../JazzScripts/';
 

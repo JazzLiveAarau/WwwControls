@@ -1,5 +1,5 @@
 // File: UtilityHtml.js
-// Date: 2023-10-26
+// Date: 2024-01-09
 // Author: Gunnar Lidén
 
 // File content
@@ -995,10 +995,12 @@ class UtilHtml
     static getTabs(i_number_tabs)
     {
         var ret_tabs = '';
+
+        var tab_number_spaces = 4;
     
         for (var i_tab=1; i_tab<=i_number_tabs; i_tab++)
         {
-            for (var i_space=1; i_space<=g_tab_number_spaces; i_space++ )
+            for (var i_space=1; i_space <= tab_number_spaces; i_space++ )
             {
                 ret_tabs = ret_tabs + ' ';
             } 

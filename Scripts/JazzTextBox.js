@@ -1,5 +1,5 @@
 // File: JazzTextBox.js
-// Date: 2024-01-06
+// Date: 2024-01-29
 // Author: Gunnar Lidén
 
 // File content
@@ -41,6 +41,10 @@ class JazzTextBox
     
         // The value of the text box
         this.m_value = '';
+
+        // Input type. For this class may 'number' and 'tel' also be applicable
+        // In telephones the number keyboard will be invoked for these types
+        this.m_input_type = 'text';
 
         // The oninput function name. Only the name is input
         this.m_oninput_function = '';
@@ -247,6 +251,27 @@ class JazzTextBox
 
     } // setReadOnlyFlag
 
+    // Set input type to text (default in this class)
+    setInputTypeToText()
+    {
+        this.m_input_type = 'text';
+
+    } // setInputTypeToText
+
+    // Set input type to number. Can be used to invoke number keyboards in telephones
+    setInputTypeToNumber()
+    {
+        this.m_input_type = 'number';
+
+    } // setInputTypeToNumber
+
+    // Set input type to telephone. Can be used to invoke number keyboards in telephones
+    setInputTypeToTelephone()
+    {
+        this.m_input_type = 'tel';
+
+    } // setInputTypeToTelephone
+
     // Sets the title of this HTML element. The title can be a tool tip
     // In a desktop computer the title is displayed when the mouse is
     // over the HTML element
@@ -335,7 +360,7 @@ class JazzTextBox
                 getHtmlElementLabelString(this.m_label_text, this.m_id_text_box, this.m_title) + '<br>';
         }
 
-        ret_html_str = ret_html_str + '<input type="text" id="' + this.m_id_text_box + '" ';
+        ret_html_str = ret_html_str + '<input type="' + this.m_input_type + '" id="' + this.m_id_text_box + '" ';
 
         if (this.m_class.length > 0)
         {

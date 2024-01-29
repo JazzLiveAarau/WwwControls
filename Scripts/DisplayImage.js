@@ -1,5 +1,5 @@
 // File: DisplayImage.js
-// Date: 2023-11-29
+// Date: 2024-01-29
 // Author: Gunnar Lidén
 
 // File content
@@ -38,6 +38,24 @@ class DisplayImage
         // Icon width
         this.m_icon_width = '70px';
 
+        // Icon one width
+        this.m_icon_one_width = '70px';
+
+        // Icon two width
+        this.m_icon_two_width = '70px';
+
+        // Icon three width
+        this.m_icon_three_width = '70px';
+
+        // Icon four width
+        this.m_icon_four_width = '70px';
+
+        // Icon five width
+        this.m_icon_five_width = '70px';
+
+        // Icon six width
+        this.m_icon_six_width = '70px';
+
         // Image file name
         this.m_image_file_name = '';
 
@@ -59,6 +77,12 @@ class DisplayImage
 
         // Icon four file name
         this.m_icon_four_file_name = '';
+
+        // Icon five file name
+        this.m_icon_five_file_name = '';
+
+        // Icon six file name
+        this.m_icon_six_file_name = '';
 
         // The string for the text one element
         this.m_text_one_str = '';
@@ -98,6 +122,12 @@ class DisplayImage
 
         // Styles for the display image icon four element. Separate with semicolon
         this.m_style_icon_four = '';
+
+        // Styles for the display image icon five element. Separate with semicolon
+        this.m_style_icon_five = '';
+
+        // Styles for the display image icon six element. Separate with semicolon
+        this.m_style_icon_six = '';
 
         // Styles for a display image picture container element. Separate with semicolon
         // Function sets clear:both; height: m_image_container_height
@@ -181,6 +211,48 @@ class DisplayImage
 
     } // setIconWidth
 
+    // Set icon one width
+    setIconOneWidth(i_icon_one_width)
+    {
+        this.m_icon_one_width = i_icon_one_width;  
+
+    } // setIconOneWidth
+
+    // Set icon two width
+    setIconTwoWidth(i_icon_two_width)
+    {
+        this.m_icon_two_width = i_icon_two_width;  
+
+    } // setIconTwoWidth
+
+    // Set icon three width
+    setIconThreeWidth(i_icon_three_width)
+    {
+        this.m_icon_three_width = i_icon_three_width;  
+
+    } // setIconThreeWidth
+
+    // Set icon four width
+    setIconFourWidth(i_icon_four_width)
+    {
+        this.m_icon_four_width = i_icon_four_width;  
+
+    } // setIconFourWidth
+
+    // Set icon five width
+    setIconFiveWidth(i_icon_five_width)
+    {
+        this.m_icon_five_width = i_icon_five_width;  
+
+    } // setIconFiveWidth
+
+    // Set icon six width
+    setIconSixWidth(i_icon_six_width)
+    {
+        this.m_icon_six_width = i_icon_six_width;  
+
+    } // setIconSixWidth
+
     // Set icon one file name
     setIconOneFileName(i_icon_one_file_name)
     {
@@ -208,6 +280,20 @@ class DisplayImage
         this.m_icon_four_file_name = i_icon_four_file_name;    
             
     } // setIconFourFileName
+    
+    // Set icon five file name
+    setIconFiveFileName(i_icon_five_file_name)
+    {
+        this.m_icon_five_file_name = i_icon_five_file_name;    
+            
+    } // setIconFiveFileName
+
+    // Set icon six file name
+    setIconSixFileName(i_icon_six_file_name)
+    {
+        this.m_icon_six_file_name = i_icon_six_file_name;    
+            
+    } // setIconSixFileName
 
     // Set the text one element
     setTextOne(i_text_one_str)
@@ -309,6 +395,20 @@ class DisplayImage
 
     } // setOnclickIconFourFunctionName  
 
+    // Sets the onclick icon five function name. Only the name is input
+    setOnclickIconFiveFunctionName(i_onclick_icon_five_function_name) 
+    {
+      this.m_onclick_icon_five_function_name = i_onclick_icon_five_function_name;
+
+    } // setOnclickIconFiveFunctionName  
+
+    // Sets the onclick icon six function name. Only the name is input
+    setOnclickIconSixFunctionName(i_onclick_icon_six_function_name) 
+    {
+      this.m_onclick_icon_six_function_name = i_onclick_icon_six_function_name;
+
+    } // setOnclickIconSixFunctionName  
+
     // Set styles for the group div with icons. Separate with semicolon
     setStyleIconsGroupString(i_style_icons_group)
     {
@@ -343,6 +443,20 @@ class DisplayImage
         this.m_style_icon_four = i_style_icon_four;
 
     } // setStyleIconFourString  
+
+    // Set styles for the display image icon five element. Separate with semicolon
+    setStyleIconFiveString(i_style_icon_five)
+    {
+        this.m_style_icon_five = i_style_icon_five;
+
+    } // setStyleIconFourString  
+
+    // Set styles for the display image icon six element. Separate with semicolon
+    setStyleIconSixString(i_style_icon_six)
+    {
+        this.m_style_icon_six = i_style_icon_six;
+
+    } // setStyleIconSixString  
 
     // Set styles for the display image picture element. Separate with semicolon
     // Function sets clear:both; height: m_image_container_height
@@ -833,7 +947,7 @@ class DisplayImage
             icon_one_div_style_str = icon_one_div_style_str + '; ' + this.m_style_icon_one;
         }
 
-        var image_width = this.m_icon_width;
+        var image_width = this.m_icon_one_width;
 
         var icon_id = '';
         var icon_styles_str = 'cursor: pointer';
@@ -886,7 +1000,7 @@ class DisplayImage
             icon_two_div_style_str = icon_two_div_style_str + '; ' + this.m_style_icon_two;
         }
 
-        var image_width = this.m_icon_width;
+        var image_width = this.m_icon_two_width;
 
         var icon_id = '';
         var icon_styles_str = 'cursor: pointer';
@@ -939,7 +1053,7 @@ class DisplayImage
             icon_three_div_style_str = icon_three_div_style_str + '; ' + this.m_style_icon_three;
         }
 
-        var image_width = this.m_icon_width;
+        var image_width = this.m_icon_three_width;
 
         var icon_id = '';
         var icon_styles_str = 'cursor: pointer';
@@ -992,7 +1106,7 @@ class DisplayImage
             icon_four_div_style_str = icon_four_div_style_str + '; ' + this.m_style_icon_four;
         }
 
-        var image_width = this.m_icon_width;
+        var image_width = this.m_icon_four_width;
 
         var icon_id = '';
         var icon_styles_str = 'cursor: pointer';
@@ -1003,6 +1117,112 @@ class DisplayImage
 
     } // getIconFourDivHtmlString
 
+
+    // Returns the identity of the icon five
+    getIdIconFiveDiv()
+    {
+        return 'id_icon_five_div_' + this.m_id_my_fctn_str;
+
+    } // getIdIconFiveDiv
+
+    // Returns the element icon five
+    getElementIconFiveDiv()
+    {
+        return document.getElementById(this.getIdIconFiveDiv());
+    }
+
+    // Hide element div icon five
+    hideElementIconFiveDiv()
+    {
+        this.getElementIconFiveDiv().style.display = "none";
+
+    } // hideElementIconFiveDiv
+
+    // Display element div icon five
+    displayElementIconFiveDiv()
+    {
+        this.getElementIconFiveDiv().style.display = "block";
+        
+    } // hideElementIconFiveDiv
+
+    // Get the HTML string defining the div icon five
+    getIconFiveDivHtmlString(i_n_tabs)
+    {
+        var icon_five_div_style_str = 'width: auto';
+
+        if (this.m_display_div_borders)
+        {
+            icon_five_div_style_str = icon_five_div_style_str + '; border: 1px solid yellow';
+        }
+
+        if (this.m_style_icon_five.length > 0)
+        {
+            icon_five_div_style_str = icon_five_div_style_str + '; ' + this.m_style_icon_five;
+        }
+
+        var image_width = this.m_icon_five_width;
+
+        var icon_id = '';
+        var icon_styles_str = 'cursor: pointer';
+
+        var icon_five_inner_html = UtilHtml.getDivElementIconStyleString(icon_id, icon_styles_str, this.m_icon_five_file_name, image_width, this.m_onclick_icon_five_function_name, '', i_n_tabs+1)
+
+        return UtilHtml.getDivElementLeafStyleString(this.getIdIconFiveDiv(), icon_five_div_style_str, icon_five_inner_html, i_n_tabs+1);
+
+    } // getIconFiveDivHtmlString
+
+    // Returns the identity of the icon six
+    getIdIconSixDiv()
+    {
+        return 'id_icon_six_div_' + this.m_id_my_fctn_str;
+
+    } // getIdIconSixDiv
+
+    // Returns the element icon six
+    getElementIconSixDiv()
+    {
+        return document.getElementById(this.getIdIconSixDiv());
+    }
+
+    // Hide element div icon six
+    hideElementIconSixDiv()
+    {
+        this.getElementIconSixDiv().style.display = "none";
+
+    } // hideElementIconSixDiv
+
+    // Display element div icon six
+    displayElementIconSixDiv()
+    {
+        this.getElementIconSixDiv().style.display = "block";
+        
+    } // hideElementIconSixDiv
+
+    // Get the HTML string defining the div icon six
+    getIconSixDivHtmlString(i_n_tabs)
+    {
+        var icon_six_div_style_str = 'width: auto';
+
+        if (this.m_display_div_borders)
+        {
+            icon_six_div_style_str = icon_six_div_style_str + '; border: 1px solid yellow';
+        }
+
+        if (this.m_style_icon_six.length > 0)
+        {
+            icon_six_div_style_str = icon_six_div_style_str + '; ' + this.m_style_icon_six;
+        }
+
+        var image_width = this.m_icon_six_width;
+
+        var icon_id = '';
+        var icon_styles_str = 'cursor: pointer';
+
+        var icon_six_inner_html = UtilHtml.getDivElementIconStyleString(icon_id, icon_styles_str, this.m_icon_six_file_name, image_width, this.m_onclick_icon_six_function_name, '', i_n_tabs+1)
+
+        return UtilHtml.getDivElementLeafStyleString(this.getIdIconSixDiv(), icon_six_div_style_str, icon_six_inner_html, i_n_tabs+1);
+
+    } // getIconSixDivHtmlString
 
     // Returns the identity of the icons group div
     getIdIconsGroupDiv()
@@ -1048,13 +1268,17 @@ class DisplayImage
 
         var icons_group_inner_html = '';
 
-        var icons_group_inner_html = icons_group_inner_html + this.getIconOneDivHtmlString(i_n_tabs+1);
+        icons_group_inner_html = icons_group_inner_html + this.getIconOneDivHtmlString(i_n_tabs+1);
 
-        var icons_group_inner_html = icons_group_inner_html + this.getIconTwoDivHtmlString(i_n_tabs+1);
+        icons_group_inner_html = icons_group_inner_html + this.getIconTwoDivHtmlString(i_n_tabs+1);
 
-        var icons_group_inner_html = icons_group_inner_html + this.getIconThreeDivHtmlString(i_n_tabs+1);
+        icons_group_inner_html = icons_group_inner_html + this.getIconThreeDivHtmlString(i_n_tabs+1);
 
-        var icons_group_inner_html = icons_group_inner_html + this.getIconFourDivHtmlString(i_n_tabs+1);
+        icons_group_inner_html = icons_group_inner_html + this.getIconFourDivHtmlString(i_n_tabs+1);
+
+        icons_group_inner_html = icons_group_inner_html + this.getIconFiveDivHtmlString(i_n_tabs+1);
+
+        icons_group_inner_html = icons_group_inner_html + this.getIconSixDivHtmlString(i_n_tabs+1);
 
         return UtilHtml.getDivElementLeafStyleString(this.getIdIconsGroupDiv(), icons_group_div_style_str, icons_group_inner_html, i_n_tabs+1);
 
@@ -1100,7 +1324,6 @@ class DisplayImage
         return ret_html_str;
 
     } // getHtmlString
-
 
 } // DisplayImage
 

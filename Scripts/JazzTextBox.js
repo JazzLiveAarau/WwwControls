@@ -1,5 +1,5 @@
 // File: JazzTextBox.js
-// Date: 2024-01-29
+// Date: 2024-01-28
 // Author: Gunnar Lidén
 
 // File content
@@ -45,6 +45,12 @@ class JazzTextBox
         // Input type. For this class may 'number' and 'tel' also be applicable
         // In telephones the number keyboard will be invoked for these types
         this.m_input_type = 'text';
+
+        // For type number the minimum number e.g. 0
+        this.m_number_min = '';
+
+        // For type number the maximum number e.g. 9
+        this.m_number_max = '';
 
         // The oninput function name. Only the name is input
         this.m_oninput_function = '';
@@ -265,6 +271,20 @@ class JazzTextBox
 
     } // setInputTypeToNumber
 
+    // For type number set the minimum number e.g. 0
+    setNumberMin(i_number_min)
+    {
+        this.m_number_min = i_number_min;
+     
+    } // setNumberMin
+
+    // For type number set the maximum number e.g. 9
+    setNumberMax(i_number_max)
+    {
+        this.m_number_max = i_number_max;  
+
+    } // setNumberMax
+
     // Set input type to telephone. Can be used to invoke number keyboards in telephones
     setInputTypeToTelephone()
     {
@@ -372,6 +392,16 @@ class JazzTextBox
         if (this.m_text_box_size.length > 0)
         {
             ret_html_str = ret_html_str + ' size="' + this.m_text_box_size + '" ';
+        }
+
+        if (this.m_number_min.length > 0)
+        {
+            ret_html_str = ret_html_str + ' min="' + this.m_number_min + '" ';
+        }
+
+        if (this.m_number_max.length > 0)
+        {
+            ret_html_str = ret_html_str + ' max="' + this.m_number_max + '" ';
         }
 
         if (this.m_maxlength.length > 0)

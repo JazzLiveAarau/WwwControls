@@ -1,5 +1,5 @@
 // File: JazzTextBox.js
-// Date: 2024-01-28
+// Date: 2024-02-04
 // Author: Gunnar Lidén
 
 // File content
@@ -41,6 +41,9 @@ class JazzTextBox
     
         // The value of the text box
         this.m_value = '';
+
+        // Placeholder text (instructions what to write)
+        this.m_placeholder_text = '';
 
         // Input type. For this class may 'number' and 'tel' also be applicable
         // In telephones the number keyboard will be invoked for these types
@@ -145,6 +148,15 @@ class JazzTextBox
         return this.m_value;
 
     } // getValue    
+
+    // Set placeholder text (instructions what to write)
+    setPlaceholderText(i_placeholder_text)
+    {
+        this.m_placeholder_text = i_placeholder_text;
+
+        this.setControl();
+
+    } // setPlaceholderText
 
     // Set focus
     setFocus()
@@ -408,7 +420,10 @@ class JazzTextBox
         {
             ret_html_str = ret_html_str + ' maxlength="' + this.m_maxlength + '" ';
         }
-
+        if ( this.m_placeholder_text.length > 0)
+        {
+            ret_html_str = ret_html_str + ' placeholder="' + this.m_placeholder_text + '" ';
+        }
 
         if (this.m_oninput_function.length > 0)
         {

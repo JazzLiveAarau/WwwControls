@@ -1,5 +1,5 @@
 // File: JazzTextArea.js
-// Date: 2024-01-12
+// Date: 2024-02-04
 // Author: Gunnar Lidén
 
 // File content
@@ -66,6 +66,9 @@ class JazzTextArea
         // left: Left of box right: Right of box above: Above box
         // Default is left of the text box
         this.m_label_text_position = 'left'; 
+
+        // Placeholder text (instructions what to write)
+        this.m_placeholder_text = '';
 
         // Size of the text box. Size is the number of characters
         // If size not is set there will be no attribute size= "20"
@@ -183,6 +186,15 @@ class JazzTextArea
 
     } // setLabelTextPositionLeft
 
+    // Set placeholder text (instructions what to write)
+    setPlaceholderText(i_placeholder_text)
+    {
+        this.m_placeholder_text = i_placeholder_text;
+
+        this.setControl();
+
+    } // setPlaceholderText
+        
     // Sets the label text to the right of the text box
     setLabelTextPositionRight() 
     {
@@ -325,6 +337,11 @@ class JazzTextArea
         if (this.m_title.length > 0)
         {
             ret_html_str = ret_html_str + ' title="' + this.m_title + '" ';
+        }
+
+        if ( this.m_placeholder_text.length > 0)
+        {
+            ret_html_str = ret_html_str + ' placeholder="' + this.m_placeholder_text + '" ';
         }
 
         if (this.m_read_only_flag)

@@ -196,6 +196,13 @@ class JazzUploadImage
             return;
         }
 
+        if (this.m_input_data.m_upload_path.length > 0 && !UtilServer.isAbsolutePath(this.m_input_data.m_upload_path))
+        {
+            alert("JazzUploadImage.init  Error: Not an absolute path m_upload_path= " + this.m_input_data.m_upload_path);
+
+            return;
+        }        
+
         var html_content = this.getHtml();
 
         this.m_el_div_container.innerHTML = html_content;

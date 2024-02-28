@@ -333,9 +333,31 @@ class JazzUploadImage
 
             full_server_file_name = i_input_data.getImageFileFullName();
 
-            JazzUploadImage.debugAppend("userSelectedFiles The original image is not compressed");
+            JazzUploadImage.debugAppend("userSelectedFiles The original image will not be compressed");
 
-            UtilServer.uploadFile(image_file, full_server_file_name, JazzUploadImage.displayUploadedImage);
+            var file_type = JazzUploadImage.getFileTypeImage(image_file);
+
+            if (file_type != "image/jpeg" && file_type != "image/jpg" && !UtilServer.isSafari())
+            {
+                JazzUploadImage.debugAppend("JazzUploadImage.userSelectedFiles The original image will be converted");
+
+                var converted_file = await JazzUploadImage.getConvertedImageFile(image_file);
+
+                console.log("JazzUploadImage.userSelectedFiles The image was converted");
+
+                i_input_data.setFileExtensionFromObjectFileType(converted_file);
+
+                full_server_file_name = i_input_data.getImageFileFullName();
+
+                JazzUploadImage.debugAppend("JazzUploadImage.userSelectedFiles The input image was converted. File name= " + full_server_file_name);
+
+                UtilServer.uploadFile(image_file, full_server_file_name, JazzUploadImage.displayUploadedImage);
+            }
+            else
+            {
+                UtilServer.uploadFile(image_file, full_server_file_name, JazzUploadImage.displayUploadedImage);
+            }
+            
         }
         else
         {
@@ -377,6 +399,58 @@ class JazzUploadImage
         JazzUploadImage.debugAppend("displayUploadedImage UtilImage.replaceImageInDivContainer was called");
 
     } // displayUploadedImage
+
+    // Get image file that has been converted to type jpeg
+    static async getConvertedImageFile(i_image_file)
+    {
+        if (UtilServer.isSafari())
+        {
+            alert("JazzUploadImage.getConvertedImageFile Browser is Apple Safari. Function compressImage does not work");
+
+            return null;
+        }
+
+        if (!JazzUploadImage.fileIsOfTypeImage(i_image_file))
+        {
+            alert("JazzUploadImage.getConvertedImageFile The file is not an image.");
+
+            return null;
+        }
+
+        var file_type = JazzUploadImage.getFileTypeImage(i_image_file);
+
+        if (file_type == "image/jpeg" || file_type == "image/jpg" )
+        {
+            alert("JazzUploadImage.getConvertedImageFile The file is already type image/jpeg or image/jpg");
+
+            return null;            
+        }
+
+        var scale_factor = 1.0;
+
+        console.log("JazzUploadImage.getConvertedImageFile Scaling factor " + scale_factor.toString());
+
+        JazzUploadImage.debugAppend("getConvertedImageFile Scaling factor= " + scale_factor.toString());
+
+        var file_type_str = 'image/jpeg';
+
+        const converted_file = await compressImage(i_image_file, {
+            quality: scale_factor,
+            type: file_type_str,
+        });
+
+        if (null == converted_file)
+        {
+            alert("JazzUploadImage.getConvertedImageFile Converted image file is null");
+            
+            return null;
+        }
+
+        JazzUploadImage.debugAppend("getConvertedImageFile Exit");
+
+        return converted_file;
+
+    } // getConvertedImageFile
     
     // Get a compressed image if bigger as the input maximum size in Megabyte
     static async getCompressedImageFile(i_image_file, i_max_size_mb)

@@ -234,6 +234,13 @@ class JazzUploadImage
        
     } // setUploadFileUrl
 
+    // Get the full server file name (URL) to the uploaded image
+    getImageFileFullName(i_full_server_file_name)
+    {       
+        return this.m_input_data.getImageFileFullName();
+
+    } // getImageFileFullName
+
     // Adds an event listener for the input file element
     // i_upload_image_object: This JazzUploadImage object
     // i_input_data:          An instance of JazzUploadImageInput

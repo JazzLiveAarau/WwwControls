@@ -49,6 +49,7 @@ $file_content .= "\n" . file_get_contents('../Scripts/UtilityHtml.js');
 $file_content .= "\n" . file_get_contents('../Scripts/DisplayImage.js');
 $file_content .= "\n" . file_get_contents('../Scripts/DisplayImageText.js');
 $file_content .= "\n" . file_get_contents('../Scripts/JazzTextArea.js');
+$file_content .= "\n" . file_get_contents('../Scripts/JazzUploadImage.js');
 
 $dir_name= '../../JazzScripts/';
 

@@ -1,5 +1,5 @@
 /* 
-File: TestLoginLogout.css Date: 2023-04-28
+File: TestLoginLogout.css Date: 2024-02-27
 
 Author: Gunnar Liden
 
@@ -35,6 +35,15 @@ Defines styles for the test application of the member login-logout menu
 {
     margin-left: 15px;
     margin-right: 15px;
+}
+
+.cl_div_control_upload_image
+{
+    border: solid 2px blue; 
+    width: 200px;
+    height: 220px;
+    margin-left: 50px;
+    margin-top: 10px;
 }
 
 .cl_div_merge_files

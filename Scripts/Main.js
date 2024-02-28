@@ -1,5 +1,5 @@
 // File: Main.js
-// Date: 2024-01-06
+// Date: 2024-02-28
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -35,6 +35,8 @@ function initTestControls()
 {
 
     createTextBox();
+
+    createControlUploadImageToServer();
  
 
 } // initTestControls
@@ -46,6 +48,48 @@ function initTestControls()
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Create Controls And Events ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+// Create a control for the upload of images to the server
+function createControlUploadImageToServer()
+{
+    var upload_path = 'https://jazzliveaarau.ch/WwwControls/UploadedImages/';
+
+    var upload_file_name = 'Image_' + UtilDate.getTimeStamp();
+
+    // The extension will be defined by the image file that the user selected
+    var upload_file_extension = ''; 
+
+    var image_max_size_mb = 1.5;
+
+    var default_img = 'https://jazzliveaarau.ch/WwwControls/Icons/default_upload_image.jpg';
+
+    var caption_select_img = 'Bild wählen';
+
+    var input_data = new JazzUploadImageInput(upload_file_name, upload_file_extension, upload_path, 
+            image_max_size_mb, default_img, caption_select_img, callbackImageIsUploaded);
+
+    g_upload_image_object = new JazzUploadImage(getIdDivImageContainer(), input_data);
+
+
+} // createControlUploadImageToServer
+
+// Callback function: An image was loaded to the <img> element that displays the uploaded image
+// b_default_img equals true: The default image is loaded (normally perhaps do nothing)
+// b_default_img equals false: The selected picture is loaded/displayed. The user can continue
+function callbackImageIsUploaded(b_default_img)
+{
+    if (b_default_img)
+    {
+        console.log("callbackImageIsUploaded Default image was loaded");
+    }
+    else
+    {
+        console.log("callbackImageIsUploaded Selected image was loaded");
+
+        // alert("callbackImageIsUploaded Selected image was loaded");
+    }
+    
+} // callbackImageIsUploaded
 
 // Create the title text box
 function createTextBox()
@@ -92,6 +136,14 @@ function getIdDivButton()
     return 'id_div_control_button';
 
 } // getIdDivButton
+
+// Returns the identity of the image <div> container
+function getIdDivImageContainer()
+{
+    return 'id_div_control_upload_image';
+
+} // getIdDivImageContainer
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Get Id And Element Functions ////////////////////////////////

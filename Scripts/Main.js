@@ -70,6 +70,10 @@ function createControlUploadImageToServer()
 
     g_upload_image_object = new JazzUploadImage(getIdDivImageContainer(), input_data);
 
+    var full_server_file_name = 'https://jazzliveaarau.ch/WwwControls/UploadedImages/ChangedFileName.jpg';
+
+    // Possibility to change name: g_upload_image_object.setUploadFileUrl(full_server_file_name);
+
 
 } // createControlUploadImageToServer
 

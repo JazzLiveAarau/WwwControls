@@ -14,7 +14,7 @@
 // Input data for JazzUploadImage
 // i_upload_file_name:      The name of the file to be uploaded without extension
 // i_upload_file_extension: The extension of the file to be uploaded
-// i_upload_path:           The server (relative) path for the file to be uploaded
+// i_upload_path:           The server absolute path (URL) for the file to be uploaded
 // i_image_max_size_mb:     Maximum image size in MByte. If bigger the image will be compressed
 // i_default_img:           URL for the default (start) image in the image container <div>
 // i_caption_select_img:    Caption for the select image button
@@ -33,7 +33,7 @@ class JazzUploadImageInput
         // Extension of the upload file,e.g. .jpg
         this.m_upload_file_extension = i_upload_file_extension;
 
-        // The server (relative) path for m_upload_file_name
+        // The server absolute path for m_upload_file_name
         this.m_upload_path = i_upload_path;
 
         // Maximum image size in MByte. If bigger the image will be compressed
@@ -47,6 +47,12 @@ class JazzUploadImageInput
 
         // Callback function when image has been loaded
         this.m_img_loaded_callback = i_img_loaded_callback;
+    }
+
+     // Set the server absolute path for m_upload_file_name
+    setImageFilePath(i_upload_path)
+    {
+        this.m_upload_path = i_upload_path;        
     }
 
     // Sets the name of the upload file without extension, e.g. Image_yyymmddhhmmss
@@ -173,9 +179,6 @@ class JazzUploadImage
         // The container element object
         this.m_el_div_container = null;
 
-        // The full server file name (URL) to the uploaded image
-        this.m_full_server_file_name = '';
-
         // Initialization
         this.init();
 
@@ -203,19 +206,26 @@ class JazzUploadImage
 
     } // init
 
-    // Set the full server file name (URL) to the uploaded image
-    setImageFileFullName(i_full_server_file_name)
-    {      
-        this.m_full_server_file_name = i_full_server_file_name;
+    // Set the full server file name (URL) for the uploaded image
+    // i_full_server_file_name: Absolut full path URL
+    // Please note that the URL can be set also as input data to JazzUtilImageInput
+    // (Pameters i_upload_file_name, i_upload_file_extension, i_upload_path)
+    setUploadFileUrl(i_full_server_file_name)
+    { 
+        if (!UtilServer.isAbsolutePath(i_full_server_file_name))
+        {
+            alert("JazzUploadImage.setUploadFileUrl Not an absolute path= " + i_full_server_file_name);
 
-    } // setImageFileFullName
+            return;
+        }
 
-    // Swt the full server file name (URL) to the uploaded image
-    getImageFileFullName(i_full_server_file_name)
-    {       
-        return this.m_full_server_file_name;
+        this.m_input_data.setImageFilePath(UtilServer.getFilePath(i_full_server_file_name));   
+        
+        this.m_input_data.setImageFileName(UtilServer.getFileNameWithoutExtension(i_full_server_file_name));  
 
-    } // getImageFileFullName
+        this.m_input_data.setImageFileExtension(UtilServer.getFileExtension(i_full_server_file_name));  
+       
+    } // setUploadFileUrl
 
     // Adds an event listener for the input file element
     // i_upload_image_object: This JazzUploadImage object
@@ -344,7 +354,7 @@ class JazzUploadImage
             UtilServer.uploadFile(image_file, full_server_file_name, JazzUploadImage.displayUploadedImage);
         }
 
-        this.setImageFileFullName(full_server_file_name);
+        //QQQ this.setImageFileFullName(full_server_file_name);
 
     } // userSelectedFiles
 

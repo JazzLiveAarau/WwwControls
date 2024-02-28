@@ -354,8 +354,6 @@ class JazzUploadImage
             UtilServer.uploadFile(image_file, full_server_file_name, JazzUploadImage.displayUploadedImage);
         }
 
-        //QQQ this.setImageFileFullName(full_server_file_name);
-
     } // userSelectedFiles
 
     // Reset the default image

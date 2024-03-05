@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test of general controls">
+    <meta name="author" content="Gunnar Liden">  
+    <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />	
+    
+    <!-- Styles for the test of the grid list class -->
+    <link rel="stylesheet" href="Styles/GridList.css">
+
+     <!-- Functions for the testing of the grid list control -->
+     <script type="text/javascript" src="Scripts/MainGridList.js"></script>
+
+     <!-- Class utility functions for controls -->
+     <script type="text/javascript" src="Scripts/UtilControls.js"></script>
+
+     <!-- Class HTML string functions -->
+     <script type="text/javascript" src="Scripts/UtilityHtml.js"></script>
+
+     <!-- Class display image with controls in a div container -->
+     <script type="text/javascript" src="Scripts/DisplayImage.js"></script>
+
+   <!--  Class for the grid list control -->
+   <script type="text/javascript" src="Scripts/GridList.js"></script>
+
+    <!--  Library with Utility classes -->
+    <script type="text/javascript" src="https://jazzliveaarau.ch/JazzScripts/Utils_20231213.js"></script> 
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>Test grid list</title>
+</head>
+
+<body onload= "initGridList()">
+    
+    <div id= 'id_grid_list_page' class= 'cl_grid_list_page'>
+
+        <div class= 'cl_grid_list_header'>
+            <img src="Icons/JazzNote.png" >
+            JAZZ <i>live</i> AARAU Grid List
+            <img src="Icons/JazzNote.png" >
+        </div>
+
+        <div id= "id_div_container_grid_list" class="cl_div_container_grid_list"></div>
+
+ 
+
+    </div>
+
+</body>
+
+</html>

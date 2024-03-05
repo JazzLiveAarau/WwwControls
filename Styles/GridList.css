@@ -1,0 +1,52 @@
+/* 
+File: GridList.css Date: 2024-03-01
+
+Author: Gunnar Liden
+
+Defines styles for the test of the grid list class
+
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_hide_scrollbar_keep_func
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-scrollbar
+*/
+
+/* Page <div> element */
+.cl_grid_list_page
+{
+    border: solid 2px blue;
+    font-family: 'Arial';
+    width: 500px;
+    margin-top: 20px;
+    margin-left: 20px;
+    height: 670px;
+}
+
+/* Header <div> element */
+.cl_grid_list_header
+{
+    border: solid 2px yellow;
+    text-align: center;
+    background-color: black;
+    color: rgb(255, 0, 40);
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.cl_div_container_grid_list::-webkit-scrollbar
+{
+    display: none;
+}
+
+.cl_div_container_grid_list
+{
+    width: 80%;
+    height: 70%;
+    margin: auto;
+    margin-top: 10px;
+    overflow-y: scroll; /* Add the ability to scroll */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    border: solid 2px black;
+    clear: both;
+}

@@ -1,5 +1,5 @@
 // File: Main.js
-// Date: 2024-02-28
+// Date: 2024-04-08
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -22,6 +22,12 @@
 // Text box 
 var g_text_box = null;
 
+// Icon 
+var g_icon = null;
+
+// Toolbar
+var g_toolbar = null;
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +42,10 @@ function initTestControls()
 
     createTextBox();
 
+    createToolbar();
+
+    // createIcon();
+
     createControlUploadImageToServer();
  
 
@@ -48,6 +58,143 @@ function initTestControls()
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Create Controls And Events ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+// Create a toolbar
+function createToolbar()
+{
+    var object_one = new JazzToolbarData('JazzIcon');
+
+    var object_two = new JazzToolbarData('JazzIcon');
+
+    var object_three = new JazzToolbarData('JazzIcon');
+
+    var object_four = new JazzToolbarData('JazzIcon');
+
+    object_one.setImageUrl('https://jazzliveaarau.ch/Homepage/Icons/icon_edit.png'); // getFilenameIconEdit()
+
+    object_one.setOnclickFunctionName('clickGuestBookAdminEdit');
+
+    object_one.setLabelText('Admin');
+
+    object_one.setTitle('Admin title');
+
+    object_one.setImageAlt('Edit icon');
+
+    object_two.setImageUrl('https://jazzliveaarau.ch/Homepage/Icons/icon_add.png'); // getFilenameIconAdd()
+
+    object_two.setOnclickFunctionName('clickGuestBookAddImage');
+
+    object_two.setLabelText('Zufügen');
+
+    object_two.setTitle('Zufügen title');
+
+    object_two.setImageAlt('Add record icon');
+
+    object_two.setImagePadding('5px');
+
+    object_three.setImageUrl('https://jazzliveaarau.ch/Homepage/Icons/icon_random_dice.png'); // getFilenameIconRandomDice()
+
+    object_three.setOnclickFunctionName('clickGuestBookIconRandom');
+
+    object_three.setLabelText('Zufall');
+
+    object_three.setTitle('Zufall title');
+
+    object_three.setImageAlt('Random icon');
+
+    object_four.setImageUrl('https://jazzliveaarau.ch/Homepage/Icons/icon_info_invert.png'); // getFilenameIconInfoInvert()
+
+    object_four.setOnclickFunctionName('clickGuestBookInfo');
+
+    object_four.setLabelText('');
+
+    object_four.setTitle('Info title');
+
+    object_four.setImageAlt('Information icon');
+
+    object_one.setWidth('30px');
+
+    object_two.setWidth('30px');
+
+    object_three.setWidth('30px');
+
+    object_four.setWidth('26px');
+
+    var toolbar_data_array = [];
+
+    toolbar_data_array[0] = object_one;
+
+    toolbar_data_array[1] = object_two;
+
+    toolbar_data_array[2] = object_three;
+
+    toolbar_data_array[3] = object_four;
+
+    g_toolbar = new JazzToolbar(toolbar_data_array, 'guestbook', getIdDivToolbarContainer());
+
+    g_toolbar.setLabelCase('below');
+
+    g_toolbar.setMarginLeft('5px')
+
+    g_toolbar.setMarginTop('2px')
+
+    g_toolbar.setLabelPadding('9px');
+
+    g_toolbar.setFontColor('white');
+
+    g_toolbar.setBackgroundColor('black');
+
+    //g_toolbar.setVerticalToTrue();
+
+    g_toolbar.instantiate();
+
+} // createToolbar
+
+function clickGuestBookAdminEdit()
+{
+    alert("clickGuestBookAdminEdit Admin edit icon was clicked");
+
+} // clickGuestBookAdminEdit
+
+function clickGuestBookAddImage()
+{
+    alert("clickGuestBookAddImage Add record icon was clicked");
+
+} // clickGuestBookAddImage
+
+function clickGuestBookIconRandom()
+{
+    alert("clickGuestBookIconRandom Random show icon was clicked");
+
+} // clickGuestBookIconRandom
+
+function clickGuestBookInfo()
+{
+    alert("clickGuestBookInfo Information icon was clicked");
+
+} // clickGuestBookInfo
+
+// Create an icon control
+function createIcon()
+{
+    var image_url = 'https://jazzliveaarau.ch/WwwControls/Icons/JazzNote.png';
+
+    g_icon = new JazzIcon(image_url, 'id_icon', getIdDivToolbarContainer());
+
+    g_icon.setHeight('97%');
+
+    g_icon.setOnclickFunctionName('clickTestIcon');
+
+    g_icon.setTitle('Does title work for an image element? Yes it does');
+
+} // createIcon
+
+// Event icon was clicked
+function clickTestIcon()
+{
+    alert("clickTestIcon Icon was clicked");
+
+} // clickTestIcon
 
 // Create a control for the upload of images to the server
 function createControlUploadImageToServer()
@@ -148,6 +295,12 @@ function getIdDivImageContainer()
 
 } // getIdDivImageContainer
 
+// Returns the identity of the image <div> container
+function getIdDivToolbarContainer()
+{
+    return 'id_div_container_toolbar';
+
+} // getIdDivToolbarContainer
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Get Id And Element Functions ////////////////////////////////

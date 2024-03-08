@@ -1,5 +1,5 @@
-// File: UtilityHtml.js
-// Date: 2024-01-09
+// File: UtilHtml.js
+// Date: 2024-03-08
 // Author: Gunnar Lidén
 
 // File content
@@ -159,6 +159,42 @@ class UtilHtml
     
     } // getDivElementLeafStyleString
 
+
+    // Same as getDivElementLeafStyleString but with click event function
+    static getDivElementLeafStyleClickString(i_id_element_leaf, i_styles_str, i_onclick_function, i_inner_html, i_n_tabs)
+    {
+        var ret_leaf_str = '';
+    
+        ret_leaf_str = ret_leaf_str + this.getTabs(i_n_tabs) +  this.getDivIdEqualString(i_id_element_leaf);
+    
+        ret_leaf_str = ret_leaf_str + this.getStyleEqualString(i_styles_str);
+
+        if (i_onclick_function.length > 0)
+        {
+            var index_paranthesis = i_onclick_function.indexOf('(');
+
+            if (index_paranthesis > 0)
+            {
+                ret_leaf_str = ret_leaf_str + ' onclick= "' + i_onclick_function + '" ';
+            }
+            else
+            {
+                ret_leaf_str = ret_leaf_str + ' onclick= "' + i_onclick_function + '()" ';
+            }
+        }
+    
+        ret_leaf_str = ret_leaf_str + ' >';
+    
+        ret_leaf_str = ret_leaf_str + i_inner_html;
+    
+        ret_leaf_str = ret_leaf_str + this.getDivEndString('', '');
+    
+        ret_leaf_str = ret_leaf_str + this.getNewLine();
+    
+        return ret_leaf_str;
+    
+    } // getDivElementLeafStyleClickString
+
     // Get the HTML string that defines a div icon element string
     // Returned string is
     // 
@@ -241,6 +277,7 @@ class UtilHtml
 
     // Same as getDivElementIconString but with the additional input parameters:
     // Identity and class for the image and image height
+    // TODO Replace this. with UtilHtml.
     static getDivElementIconImageString(i_id_div_el_icon, i_cl_div_el_icon, i_id_el_icon, i_cl_el_icon, i_file_name_icon, i_width, i_height, i_event_fctn, i_title, i_n_tabs)
     {
         var ret_icon_str = '';
@@ -604,6 +641,86 @@ class UtilHtml
         return ret_img_str;
     
     } // getImgWidthHeightString
+
+    // Returns string for an image. All attributes may be defined
+    // Input parameters
+    // i_file_name:  File name with path of the image 
+    // i_alt:        Alternative image text
+    // i_id:         Element identity 
+    // i_style:      Styles
+    // i_width:      Image width
+    // i_height:     Image height
+    // i_event_fctn: Event function string
+    // i_title       Title string will be tooltip in desktop computers
+    static getImgAllStyleString(i_file_name, i_alt, i_id, i_style, i_width, i_height, i_event_fctn, i_title)
+    {
+        var ret_img_str = '';
+    
+        ret_img_str =  ret_img_str + '<img '; 
+
+        if (i_file_name.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'src= "' + i_file_name + '" ';
+        }
+        else
+        {
+            console.log("getImgAllStyleString Warning: No input image file name");
+        }
+
+        if (i_alt.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'alt= "' + i_alt + '" ';
+        }
+        else
+        {
+            console.log("getImgAllStyleString Warning: Input alternative text is empty");
+        }
+    
+        if (i_id.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'id= "' + i_id + '" ';
+        }
+    
+        if (i_style.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'style= "' + i_style + '" ';
+        }
+    
+        if (i_width.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'width= "' + i_width + '" ';
+        }
+    
+        if (i_height.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'height= "' + i_height + '" ';
+        }    
+    
+        if (i_event_fctn.length > 0)
+        {
+            var index_paranthesis = i_event_fctn.indexOf('(');
+            
+            if (index_paranthesis > 0)
+            {
+                ret_img_str = ret_img_str + ' onclick= "' + i_event_fctn + '" ';
+            }
+            else
+            {
+                ret_img_str = ret_img_str + ' onclick= "' + i_event_fctn + '()" ';
+            }
+        }
+    
+        if (i_title.length > 0)
+        {
+            ret_img_str =  ret_img_str + 'title= "' + i_title + '" ';
+        }    
+    
+        ret_img_str =  ret_img_str + ' >'; 
+    
+        return ret_img_str;
+    
+    } // getImgAllStyleString
+
 
     // Returns string for an image
     // Input parameters
@@ -975,6 +1092,167 @@ class UtilHtml
 
     ///////////////////////////////////////////////////////////////////////////
     /////// End Div Sub Elements /////////////((///////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// Start Style String Functions //////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Append style like for instance 'cursor: pointer'
+    static appendStyle(i_style, i_append_style)
+    {
+        var ret_str = '';
+
+        var index_colon = i_append_style.indexOf(':');
+
+        if (index_colon < 0)
+        {
+            alert("UtilHtml.appendStyle No colon in input string");
+
+            return i_style;
+        }
+
+        if (i_style.trim().length == 0)
+        {
+            ret_str = i_append_style.trim();
+        }
+        else
+        {
+            ret_str = i_style.trim() + '; ' + i_append_style.trim();
+        }
+
+        return ret_str;
+
+    } // appendStyle
+
+    // Appends float left
+    static appendLeftStyle(i_style)
+    {
+        return UtilHtml.appendStyle(i_style, 'float: left');
+
+    } // appendLeftStyle
+
+    // Appends float right
+    static appendRightStyle(i_style)
+    {
+        return UtilHtml.appendStyle(i_style, 'float: right');
+
+    } // appendRightStyle
+
+    // Appends clear both
+    static appendClearStyle(i_style)
+    {
+        return UtilHtml.appendStyle(i_style, 'clear: both');
+
+    } // appendClearStyle
+
+    // Appends cursor pointer
+    static appendCursorStyle(i_style)
+    {
+        return UtilHtml.appendStyle(i_style, 'cursor: pointer');
+
+    } // appendCursorStyle
+
+    // Appends font size
+    static appendFontSizeStyle(i_style, i_font_size)
+    {
+        return UtilHtml.appendStyle(i_style, 'font-size: ' + i_font_size.trim());
+
+    } // appendFontSizeStyle
+
+    // Appends font bold
+    static appendFontBoldStyle(i_style)
+    {
+        return UtilHtml.appendStyle(i_style, 'font-weight: bold');
+
+    } // appendFontBoldStyle
+
+    // Appends font color
+    static appendFontColorStyle(i_style, i_font_color)
+    {
+        return UtilHtml.appendStyle(i_style, 'color: ' + i_font_color.trim());
+
+    } // appendFontColorStyle
+
+    // Appends background color
+    static appendBackgroundStyle(i_style, i_bg_color)
+    {
+        return UtilHtml.appendStyle(i_style, 'background-color: ' + i_bg_color.trim());
+
+    } // appendBackgroundStyle
+
+    // Appends text align center
+    static appendAlignCenterStyle(i_style)
+    {
+        return UtilHtml.appendStyle(i_style, 'text-align: center');
+
+    } // appendAlignCenterStyle
+
+    // Appends text align center
+    static appendOverflowHiddenStyle(i_style)
+    {
+        return UtilHtml.appendStyle(i_style, 'overflow: hidden');
+
+    } // appendOverflowHiddenStyle
+
+    // Appends margin top
+    static appendMarginTopStyle(i_style, i_dist)
+    {
+        return UtilHtml.appendStyle(i_style, 'margin-top: ' + i_dist.trim());
+
+    } // appendMarginTopStyle
+
+    // Appends margin bottom
+    static appendMarginBottomStyle(i_style, i_dist)
+    {
+        return UtilHtml.appendStyle(i_style, 'margin-bottom: ' + i_dist.trim());
+
+    } // appendMarginBottomStyle
+
+    // Appends margin left
+    static appendMarginLeftStyle(i_style, i_dist)
+    {
+        return UtilHtml.appendStyle(i_style, 'margin-left: ' + i_dist.trim());
+
+    } // appendMarginLeftStyle
+
+    // Appends margin right
+    static appendMarginRightStyle(i_style, i_dist)
+    {
+        return UtilHtml.appendStyle(i_style, 'margin-right: ' + i_dist.trim());
+
+    } // appendMarginRightStyle
+
+    // Appends padding top
+    static appendPaddingTopStyle(i_style, i_dist)
+    {
+        return UtilHtml.appendStyle(i_style, 'padding-top: ' + i_dist.trim());
+
+    } // appendPaddingTopStyle
+
+    // Appends padding bottom
+    static appendPaddingBottomStyle(i_style, i_dist)
+    {
+        return UtilHtml.appendStyle(i_style, 'padding-bottom: ' + i_dist.trim());
+
+    } // appendPaddingBottomStyle
+
+    // Appends padding left
+    static appendPaddingLeftStyle(i_style, i_dist)
+    {
+        return UtilHtml.appendStyle(i_style, 'padding-left: ' + i_dist.trim());
+
+    } // appendPaddingLeftStyle
+
+    // Appends padding right
+    static appendPaddingRightStyle(i_style, i_dist)
+    {
+        return UtilHtml.appendStyle(i_style, 'padding-right: ' + i_dist.trim());
+
+    } // appendPaddingRightStyle
+
+    ///////////////////////////////////////////////////////////////////////////
+    /////// End Style String Functions ////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
 

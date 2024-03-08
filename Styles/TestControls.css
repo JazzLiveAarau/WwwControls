@@ -46,6 +46,18 @@ Defines styles for the test application of the member login-logout menu
     margin-top: 10px;
 }
 
+.cl_div_container_toolbar
+{
+    border: solid 2px black;
+    width: 152px;
+    min-height: 32px;
+    background-color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    overflow: hidden;
+}
+
 .cl_div_merge_files
 {
     border: solid 2px red;

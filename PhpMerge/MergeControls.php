@@ -45,11 +45,13 @@ $file_content .= "\n" . file_get_contents('../Scripts/JazzControlUploadFile.js')
 $file_content .= "\n" . file_get_contents('../Scripts/JazzControlDatePicker.js');
 $file_content .= "\n" . file_get_contents('../Scripts/UtilControls.js');
 $file_content .= "\n" . file_get_contents('../Scripts/GridList.js');
-$file_content .= "\n" . file_get_contents('../Scripts/UtilityHtml.js');
+$file_content .= "\n" . file_get_contents('../Scripts/UtilHtml.js');
 $file_content .= "\n" . file_get_contents('../Scripts/DisplayImage.js');
 $file_content .= "\n" . file_get_contents('../Scripts/DisplayImageText.js');
 $file_content .= "\n" . file_get_contents('../Scripts/JazzTextArea.js');
 $file_content .= "\n" . file_get_contents('../Scripts/JazzUploadImage.js');
+$file_content .= "\n" . file_get_contents('../Scripts/JazzIcon.js');
+$file_content .= "\n" . file_get_contents('../Scripts/JazzToolbar.js');
 
 $dir_name= '../../JazzScripts/';
 

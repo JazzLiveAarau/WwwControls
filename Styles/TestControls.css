@@ -58,6 +58,15 @@ Defines styles for the test application of the member login-logout menu
     overflow: hidden;
 }
 
+.cl_div_control_display_image
+{
+    /* border: solid 2px black; */
+    width: 400px;
+    height: 420px; 
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
 .cl_div_merge_files
 {
     border: solid 2px red;

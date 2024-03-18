@@ -1,5 +1,5 @@
 // File: UtilHtml.js
-// Date: 2024-03-08
+// Date: 2024-03-17
 // Author: Gunnar Lidén
 
 // File content
@@ -194,6 +194,62 @@ class UtilHtml
         return ret_leaf_str;
     
     } // getDivElementLeafStyleClickString
+
+    // Get the HTML string that defines a leaf div element
+    // Returned string is 
+    // <div id= "i_id_element_leaf" style= "i_styles_str" >i_inner_html</div>
+    // The returned string has i_n_tabs tabs and ends with a new line
+    // Input identity i_id_element_leaf and class i_styles_str may be empty
+    // Also the inner HTML i_inner_html may be empty 
+    static getDivElementLeafStyleMouseString(i_id_element_leaf, i_styles_str, i_on_mouse_over, i_on_mouse_out, i_inner_html, i_n_tabs)
+    {
+        var ret_leaf_str = '';
+    
+        ret_leaf_str = ret_leaf_str + this.getTabs(i_n_tabs) +  this.getDivIdEqualString(i_id_element_leaf);
+    
+        ret_leaf_str = ret_leaf_str + this.getStyleEqualString(i_styles_str);
+
+        var index_paranthesis= -1;
+
+        if (i_on_mouse_over.length > 0)
+        {
+            index_paranthesis = i_on_mouse_over.indexOf('(');
+
+            if (index_paranthesis > 0)
+            {
+                ret_leaf_str = ret_leaf_str + ' onmouseover= "' + i_on_mouse_over + '" ';
+            }
+            else
+            {
+                ret_leaf_str = ret_leaf_str + ' onmouseover= "' + i_on_mouse_over + '()" ';
+            }
+        }
+
+        if (i_on_mouse_out.length > 0)
+        {
+            index_paranthesis = i_on_mouse_out.indexOf('(');
+
+            if (index_paranthesis > 0)
+            {
+                ret_leaf_str = ret_leaf_str + ' onmouseout= "' + i_on_mouse_out + '" ';
+            }
+            else
+            {
+                ret_leaf_str = ret_leaf_str + ' onmouseout= "' + i_on_mouse_out + '()" ';
+            }
+        }
+
+        ret_leaf_str = ret_leaf_str + ' >';
+    
+        ret_leaf_str = ret_leaf_str + i_inner_html;
+    
+        ret_leaf_str = ret_leaf_str + this.getDivEndString('', '');
+    
+        ret_leaf_str = ret_leaf_str + this.getNewLine();
+    
+        return ret_leaf_str;
+    
+    } // getDivElementLeafStyleMouseString
 
     // Get the HTML string that defines a div icon element string
     // Returned string is

@@ -1,5 +1,5 @@
 // File: DisplayImage.js
-// Date: 2024-02-02
+// Date: 2024-03-18
 // Author: Gunnar Lidén
 
 // File content
@@ -27,132 +27,226 @@ class DisplayImage
         // The identity of the container for the control
         this.m_id_div_container = i_id_div_container;
 
+        // The container element
+        this.m_el_div_container = null;
+
+        // Defines the active index record for arrays m_rec_image_file_name_array,
+        // m_rec_text_field_one_array, m_rec_text_field_two_array, ........
+        //  i.e. the image and the text that shall be displayed
+        this.m_active_index_record = 0;
+
         // Image container height
         this.m_image_container_height = '650px';
 
-        // Icon width
-        this.m_icon_width = '70px';
+        // Array of record numbers defining the records and used for m_onclick_function
+        // that can get additional data about the record from another the the original
+        // source like for instance the JazzGuestsXml XML object (file JazzGuests.xml).
+        this.m_rec_number_array = null;
 
-        // Icon one width
-        this.m_icon_one_width = '70px';
+        // Array of image file name (URLs)
+        this.m_rec_image_file_name_array = null;
 
-        // Icon two width
-        this.m_icon_two_width = '70px';
+        // Array of texts for field one. No field one if null
+        this.m_rec_text_field_one_array = null;
 
-        // Icon three width
-        this.m_icon_three_width = '70px';
+        // Array of texts for field two. No field two if null
+        this.m_rec_text_field_two_array = null;
+        
+        // Array of texts for field three. No field three if null
+        this.m_rec_text_field_three_array = null;
 
-        // Icon four width
-        this.m_icon_four_width = '70px';
+        // Array of texts for field four. No field four if null
+        this.m_rec_text_field_four_array = null;
 
-        // Icon five width
-        this.m_icon_five_width = '70px';
+        // The onclick icon next image function name. Only the name is input
+        this.m_onclick_icon_next_image_function_name = '';
 
-        // Icon six width
-        this.m_icon_six_width = '70px';
+        // The onclick icon previous image function name. Only the name is input
+        this.m_onclick_icon_prev_image_function_name = '';
+
+        // The onclick icon full screen image function name. Only the name is input
+        this.m_onclick_icon_full_screen_image_function_name = '';
+
+        // The onclick icon close image function name. Only the name is input
+        this.m_onclick_icon_close_image_function_name = '';
 
         // Image file name
-        this.m_image_file_name = '';
+        this.m_image_file_name = '';    
 
         // Image default/undefined file name
-        this.m_image_deault_file_name = 'Homepage/Icons/jazz_photo_undefined.png';
-
-        // Image style string No longer used. DisplayImage sets these attributes
-        this.m_image_style_str =  '';
-        // this.m_image_style_str =  'display:block; margin-left: auto; margin-right: auto';
-
-        // Icon one file name
-        this.m_icon_one_file_name = '';
-
-        // Icon two file name
-        this.m_icon_two_file_name = '';
-
-        // Icon three file name
-        this.m_icon_three_file_name = '';
-
-        // Icon four file name
-        this.m_icon_four_file_name = '';
-
-        // Icon five file name
-        this.m_icon_five_file_name = '';
-
-        // Icon six file name
-        this.m_icon_six_file_name = '';
-
-        // The string for the text one element
-        this.m_text_one_str = '';
-
-        // The text for the text two element
-        this.m_text_two_str = '';
-
-        // The string for the text three element
-        this.m_text_three_str = '';
-
-        // The string for the text four element
-        this.m_text_four_str = '';
-
-        // The onclick icon one function name. Only the name is input
-        this.m_onclick_icon_one_function_name = '';
-
-        // The onclick icon two function name. Only the name is input
-        this.m_onclick_icon_two_function_name = '';
-
-        // The onclick icon three function name. Only the name is input
-        this.m_onclick_icon_three_function_name = '';
-
-        // The onclick icon four function name. Only the name is input
-        this.m_onclick_icon_four_function_name = '';
-
-        // Styles for the group div with icons. Separate with semicolon
-        this.m_style_icons_group = '';
-
-        // Styles for the display image icon one element. Separate with semicolon
-        this.m_style_icon_one = '';
-
-        // Styles for the display image icon two element. Separate with semicolon
-        this.m_style_icon_two = '';
-
-        // Styles for the display image icon three element. Separate with semicolon
-        this.m_style_icon_three = '';
-
-        // Styles for the display image icon four element. Separate with semicolon
-        this.m_style_icon_four = '';
-
-        // Styles for the display image icon five element. Separate with semicolon
-        this.m_style_icon_five = '';
-
-        // Styles for the display image icon six element. Separate with semicolon
-        this.m_style_icon_six = '';
+        this.m_image_deault_file_name = 'https://jazzliveaarau.ch/Homepage/Icons/jazz_photo_undefined.png';
 
         // Styles for a display image picture container element. Separate with semicolon
         // Function sets clear:both; height: m_image_container_height
         this.m_style_picture_container = '';
 
-        // Styles for the text group all element. Separate with semicolon
-        this.m_style_text_group_all = ''; // clear: both; overflow: hidden
+        // Width of the image picture container element
+        this.m_width_picture_container = '92%';
 
-        // Styles for the text group one element. Separate with semicolon
-        this.m_style_text_group_one = ''; // clear: both; overflow: hidden
+        // Instance of class DisplayImageText
+        this.m_display_image_text = null;
 
-        // Styles for the text group two element. Separate with semicolon
-        this.m_style_text_group_two = ''; // clear: both; overflow: hidden
+        // Instance of class JazzToolbar for the left toolbar
+        this.m_left_toolbar = null;
 
-        // Styles for text one. Separate with semicolon
-        this.m_style_text_one = ''; // float: left; font-size: 15px; font-weight: bold; padding: 5px
+        // Instance of class JazzToolbar for the right toolbar
+        this.m_right_toolbar = null;
 
-        // Styles for text two. Separate with semicolon
-        this.m_style_text_two = ''; // float: right; font-size: 15px; font-weight: bold; padding: 5px
+        // Event function name for mouse over toolbar
+        this.m_on_mouse_over_function_name = '';
 
-        // Styles for text three. Separate with semicolon
-        this.m_style_text_three = ''; // clear:both; font-size: 15px; font-style: italic; font-weight: bold; padding: 5px
-
-        // Styles for text four. Separate with semicolon
-        this.m_style_text_four = ''; // clear:both; font-size: 15px; font-style: italic; font-weight: bold; padding: 5px
+        // Event function name for mouse out toolbar
+        this.m_on_mouse_out_function_name = '';
 
         // Flag telling if div borders shall be displayed for debugging
         this.m_display_div_borders = false;
 
+        // Initialization
+        this.init()
+
     } // constructor
+
+    // Initialization
+    init()
+    {
+        this.m_el_div_container = document.getElementById(this.m_id_div_container);
+
+        if (null == this.m_el_div_container)
+        {
+            alert("DisplayImage.init m_el_div_container= null")
+
+            return;
+        }
+
+        this.m_display_image_text = new DisplayImageText(this.m_id_my_fctn_str, this.getIdDisplayImageTextContainer());
+
+    } // init
+
+    // Create the image-text control
+    instantiate()
+    {
+        var n_tabs = 1;
+
+        this.m_el_div_container.innerHTML = this.getHtmlString(n_tabs);
+
+        this.createToolbars();
+
+        var index_max = this.m_rec_image_file_name_array.length - 1;
+
+        this.setActiveIndexRecord(index_max);
+
+        this.setDisplayActiveRecord();
+
+        this.hideImageToolbars();
+
+    } // instantiate
+
+    // Get the active record number
+    getActiveRecordNumber()
+    {
+        return this.m_rec_number_array[this.m_active_index_record];
+        
+    } // getActiveRecordNumber()
+
+    ///////////////////////////////////////////////////////////////
+    ////// Active record set functions ////////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+    // Defines the active index record for arrays m_rec_image_file_name_array,
+    // m_rec_text_field_one_array, m_rec_text_field_two_array, ........
+    //  i.e. the image and the text that shall be displayed
+    setActiveIndexRecord(i_active_index_record)
+    {
+        var index_max = this.m_rec_image_file_name_array.length - 1;
+
+        if (i_active_index_record < 0 || i_active_index_record > index_max)
+        {
+            alert("DisplayImage.setActiveIndexRecord Index not between 0 and " + index_max.toString());
+
+            return;
+        }
+
+        this.m_active_index_record = i_active_index_record;
+
+        this.hideDisplayNextPreviousImageIcons();
+
+    } // setActiveIndexRecord
+
+    // Set image and texts for the active image record (m_active_index_record)
+    // and display the data
+    setDisplayActiveRecord()
+    {
+        var image_url = this.m_rec_image_file_name_array[this.m_active_index_record];
+
+        var text_one = this.m_rec_text_field_one_array[this.m_active_index_record];
+
+        var text_two = this.m_rec_text_field_two_array[this.m_active_index_record];
+
+        var text_three = this.m_rec_text_field_three_array[this.m_active_index_record];
+
+        var text_four = this.m_rec_text_field_four_array[this.m_active_index_record];
+
+        this.setScalePositionDisplayImage(image_url);
+
+        this.m_display_image_text.setTextOne(text_one);
+
+        this.m_display_image_text.setTextTwo(text_two);
+
+        this.m_display_image_text.setTextThree(text_three);
+
+        this.m_display_image_text.setTextFour(text_four);
+
+    } // setDisplayActiveRecord
+
+    // Set and display the previous jazz guest record
+    setAndDisplayPreviousRecord()
+    {
+        if (this.m_active_index_record >= 1)
+        {
+            this.m_active_index_record = this.m_active_index_record - 1;
+        }
+        else
+        {
+            console.log("this.m_active_index_record Error m_active_index_record= " 
+                            + this.m_active_index_record.toString());
+
+            return;
+        }
+
+        this.hideDisplayNextPreviousImageIcons();
+
+        this.setDisplayActiveRecord();
+
+    } // setAndDisplayPreviousRecord
+
+    // Set and display the next jazz guest record
+    setAndDisplayNextRecord()
+    {
+        var index_max = this.m_rec_image_file_name_array.length - 1;
+
+        if (this.m_active_index_record <= index_max - 1)
+        {
+            this.m_active_index_record = this.m_active_index_record + 1;
+        }
+        else
+        {
+            console.log("this.setAndDisplayNextRecord Error m_active_index_record= " 
+                            + this.m_active_index_record.toString() + 
+                            ' index_max= ' + index_max.toString());
+
+            return;
+        }
+
+        this.hideDisplayNextPreviousImageIcons();
+
+        this.setDisplayActiveRecord();
+
+    } // setAndDisplayNextRecord
+
+
+    ///////////////////////////////////////////////////////////////
+    ////// Image functions ////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
 
     // Set the image file name, scale, position and display image
     setScalePositionDisplayImage(i_image_file_name)
@@ -161,7 +255,7 @@ class DisplayImage
 
         this.m_image_file_name = i_image_file_name;   
 
-        var el_div_container = document.getElementById(this.getIdPictureContainer());
+        var el_div_container = this.getElementPictureContainer();
 
         if (null == el_div_container)
         {
@@ -192,6 +286,33 @@ class DisplayImage
 
     } // displayImageContainerDiv
 
+    // Hide or display the next and previous image icons
+    hideDisplayNextPreviousImageIcons()
+    {
+        var index_max = this.m_rec_image_file_name_array.length - 1;
+
+        if (this.m_active_index_record == 0)
+        {
+            this.m_left_toolbar.displayIcon(2);
+
+            this.m_right_toolbar.hideIcon(2);     
+
+        }
+        else if (this.m_active_index_record == index_max)
+        {
+            this.m_left_toolbar.hideIcon(2);
+
+            this.m_right_toolbar.displayIcon(2);        
+        }
+        else
+        {
+            this.m_left_toolbar.displayIcon(2);
+
+            this.m_right_toolbar.displayIcon(2);
+        }
+
+    } // hideDisplayNextPreviousImageIcons
+
     // Set image height
     setImageContainerHeight(i_image_container_height)
     {
@@ -199,1099 +320,313 @@ class DisplayImage
 
     } // setImageContainerHeight
 
-    // Set icon width
-    setIconWidth(i_icon_width)
+    ///////////////////////////////////////////////////////////////
+    ////// Left And Right Toolbar /////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+    // Create the left and right toolbar
+    createToolbars()
     {
-        this.m_icon_width = i_icon_width;  
+        var object_left_one = new JazzToolbarData('JazzIcon');
 
-    } // setIconWidth
+        object_left_one.setImageUrl('https://jazzliveaarau.ch/Homepage/Icons/icon_slideshow_increase_screen.png');
 
-    // Set icon one width
-    setIconOneWidth(i_icon_one_width)
-    {
-        this.m_icon_one_width = i_icon_one_width;  
+        object_left_one.setOnclickFunctionName(this.m_onclick_icon_full_screen_image_function_name);
 
-    } // setIconOneWidth
+        object_left_one.setLabelText(''); // No label
 
-    // Set icon two width
-    setIconTwoWidth(i_icon_two_width)
-    {
-        this.m_icon_two_width = i_icon_two_width;  
+        object_left_one.setTitle('Bild auf Vollschirm anschauen');
 
-    } // setIconTwoWidth
+        object_left_one.setImageAlt('Vollschirm icon');
 
-    // Set icon three width
-    setIconThreeWidth(i_icon_three_width)
-    {
-        this.m_icon_three_width = i_icon_three_width;  
+        object_left_one.setWidth('11px');
 
-    } // setIconThreeWidth
 
-    // Set icon four width
-    setIconFourWidth(i_icon_four_width)
-    {
-        this.m_icon_four_width = i_icon_four_width;  
+        var object_left_two = new JazzToolbarData('JazzIcon');
 
-    } // setIconFourWidth
+        object_left_two.setImageUrl('https://jazzliveaarau.ch/Homepage/Icons/icon_slideshow_back.png');
 
-    // Set icon five width
-    setIconFiveWidth(i_icon_five_width)
-    {
-        this.m_icon_five_width = i_icon_five_width;  
+        object_left_two.setOnclickFunctionName(this.m_onclick_icon_next_image_function_name);
 
-    } // setIconFiveWidth
+        object_left_two.setLabelText(''); // No label
 
-    // Set icon six width
-    setIconSixWidth(i_icon_six_width)
-    {
-        this.m_icon_six_width = i_icon_six_width;  
+        object_left_two.setTitle('Nächtes Bild');
 
-    } // setIconSixWidth
+        object_left_two.setImageAlt('Nächste Icon');
 
-    // Set icon one file name
-    setIconOneFileName(i_icon_one_file_name)
-    {
-        this.m_icon_one_file_name = i_icon_one_file_name;    
+        object_left_two.setWidth('11px');
 
-    } // setIconOneFileName
 
-    // Set icon two file name
-    setIconTwoFileName(i_icon_two_file_name)
-    {
-        this.m_icon_two_file_name = i_icon_two_file_name;    
-            
-    } // setIconTwoFileName
+        var object_right_one = new JazzToolbarData('JazzIcon');
 
-    // Set icon three file name
-    setIconThreeFileName(i_icon_three_file_name)
-    {
-        this.m_icon_three_file_name = i_icon_three_file_name;    
-            
-    } // setIconThreeFileName
+        object_right_one.setImageUrl('https://jazzliveaarau.ch/Homepage/Icons/icon_slideshow_exit.png');
 
-    // Set icon four file name
-    setIconFourFileName(i_icon_four_file_name)
-    {
-        this.m_icon_four_file_name = i_icon_four_file_name;    
-            
-    } // setIconFourFileName
+        object_right_one.setOnclickFunctionName(this.m_onclick_icon_close_image_function_name);
+
+        object_right_one.setLabelText(''); // No label
+
+        object_right_one.setTitle('Bild zu machen');
+
+        object_right_one.setImageAlt('X Icon');
+
+        object_right_one.setWidth('15px');
+
+
+        var object_right_two = new JazzToolbarData('JazzIcon');
+
+        object_right_two.setImageUrl('https://jazzliveaarau.ch/Homepage/Icons/icon_slideshow_forward.png');
+
+        object_right_two.setOnclickFunctionName(this.m_onclick_icon_prev_image_function_name);
+
+        object_right_two.setLabelText(''); // No label
+
+        object_right_two.setTitle('Voriges Bild');
+
+        object_right_two.setImageAlt('Zurück Icon');
+
+        object_right_two.setWidth('11px');
+
+
+        var left_toolbar_data_array = [];
+
+        left_toolbar_data_array[0] = object_left_one;
     
-    // Set icon five file name
-    setIconFiveFileName(i_icon_five_file_name)
-    {
-        this.m_icon_five_file_name = i_icon_five_file_name;    
-            
-    } // setIconFiveFileName
+        left_toolbar_data_array[1] = object_left_two;
 
-    // Set icon six file name
-    setIconSixFileName(i_icon_six_file_name)
-    {
-        this.m_icon_six_file_name = i_icon_six_file_name;    
-            
-    } // setIconSixFileName
+        var left_unique_str = 'left_' + this.m_id_my_fctn_str;
 
-    // Set the text one element
-    setTextOne(i_text_one_str)
-    {      
-        this.m_text_one_str = i_text_one_str;
+        this.m_left_toolbar = new JazzToolbar(left_toolbar_data_array, left_unique_str, this.getIdLeftImageToolbarContainer());
 
-        var el_text_one = this.getElementTextOneDiv();
-
-        if (null == el_text_one)
-        {
-            alert("DisplayImage.setTextOne Element is not created");
-
-            return;
-        }
-
-        el_text_one.innerHTML = this.m_text_one_str;
-
-    } // setTextOne
-
-    // Set the text two element
-    setTextTwo(i_text_two_str)
-    {      
-        this.m_text_two_str = i_text_two_str;
-
-        var el_text_two = this.getElementTextTwoDiv();
-
-        if (null == el_text_two)
-        {
-            alert("DisplayImage.setTextTwo Element is not created");
-
-            return;
-        }
-
-        el_text_two.innerHTML = this.m_text_two_str;
+        this.m_left_toolbar.setMarginLeft('0px')
         
-    } // setTextTwo
+        this.m_left_toolbar.setMarginTop('5px')
 
-    // Set the text three element
-    setTextThree(i_text_three_str)
-    {      
-        this.m_text_three_str = i_text_three_str;
+        this.m_left_toolbar.setMarginBottom('100px')
+    
+        this.m_left_toolbar.setBackgroundColor('black');
+    
+        this.m_left_toolbar.setVerticalToTrue();
 
-        var el_text_three = this.getElementTextThreeDiv();
+        this.m_left_toolbar.instantiate();
 
-        if (null == el_text_three)
-        {
-            alert("DisplayImage.setTextThree Element is not created");
 
-            return;
-        }
+        var right_toolbar_data_array = [];
 
-        el_text_three.innerHTML = this.m_text_three_str;
+        right_toolbar_data_array[0] = object_right_one;
+    
+        right_toolbar_data_array[1] = object_right_two;
+
+        var right_unique_str = 'right_' + this.m_id_my_fctn_str;
+
+        this.m_right_toolbar = new JazzToolbar(right_toolbar_data_array, right_unique_str, this.getIdRightImageToolbarContainer());
+
+        this.m_right_toolbar.setMarginLeft('0px')
         
-    } // setTextThree
+        this.m_right_toolbar.setMarginTop('5px')
 
-    // Set the text four element
-    setTextFour(i_text_four_str)
-    {      
-        this.m_text_four_str = i_text_four_str;
+        this.m_right_toolbar.setMarginBottom('100px')
+    
+        this.m_right_toolbar.setBackgroundColor('black');
+    
+        this.m_right_toolbar.setVerticalToTrue();
 
-        var el_text_four = this.getElementTextFourDiv();
+        this.m_right_toolbar.instantiate();
 
-        if (null == el_text_four)
-        {
-            alert("DisplayImage.setTextFour Element is not created");
+    } // createToolbars
 
-            return;
-        }
-
-        el_text_four.innerHTML = this.m_text_four_str;
-        
-    } // setTextFour
-
-    // Sets the onclick icon one function name. Only the name is input
-    setOnclickIconOneFunctionName(i_onclick_icon_one_function_name) 
+    // Hide image toolbars
+    hideImageToolbars()
     {
-      this.m_onclick_icon_one_function_name = i_onclick_icon_one_function_name;
+        this.m_left_toolbar.hideAllIconsInheritBackgroundColor();
+
+        this.m_right_toolbar.hideAllIconsInheritBackgroundColor();
+
+    } // hideImageToolbars
+
+    // Display image toolbars
+    displayImageToolbars()
+    {
+        this.m_left_toolbar.displayAllIcons();
+
+        this.m_right_toolbar.displayAllIcons();
+
+        this.hideDisplayNextPreviousImageIcons();
+
+    } // displayImageToolbars
+
+    // Set the event function name for mouse over
+    setMouseOverFunctionName(i_on_mouse_over_function_name)
+    {
+        this.m_on_mouse_over_function_name = i_on_mouse_over_function_name;
+
+    } // setMouseOverFunctionName
+
+     // Set the event function name for mouse out
+    setMouseOutFunctionName(i_on_mouse_out_function_name)
+    {
+        this.m_on_mouse_out_function_name = i_on_mouse_out_function_name;
+        
+    } // setMouseOutFunctionName       
+
+    ///////////////////////////////////////////////////////////////
+    ////// Input data arrays //////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+    // Set array of record numbers defining the records
+    setRecordNumberArray(i_rec_number_array)
+    {
+        this.m_rec_number_array = i_rec_number_array;
+
+    } // setRecordNumberArray
+
+    // Set array of image file name (URLs)
+    setRecordImageFileNameArray(i_rec_image_file_name_array)
+    {
+        this.m_rec_image_file_name_array = i_rec_image_file_name_array;
+
+    } // setRecordImageFileNameArray
+
+    // Set array of texts for field one.
+    setRecordTextFieldOneArray(i_rec_text_field_one_array)
+    {
+        this.m_rec_text_field_one_array = i_rec_text_field_one_array;
+
+    } // setRecordTextFieldOneArray
+
+    // Set array of texts for field two.
+    setRecordTextFieldTwoArray(i_rec_text_field_two_array)
+    {
+        this.m_rec_text_field_two_array = i_rec_text_field_two_array;
+
+    } // setRecordTextFieldTwoArray    
+
+    // Set array of texts for field three.
+    setRecordTextFieldThreeArray(i_rec_text_field_three_array)
+    {
+        this.m_rec_text_field_three_array = i_rec_text_field_three_array;
+
+    } // setRecordTextFieldThreeArray    
+
+    // Set array of texts for field four.
+    setRecordTextFieldFourArray(i_rec_text_field_four_array)
+    {
+        this.m_rec_text_field_four_array = i_rec_text_field_four_array;
+
+    } // setRecordTextFieldFourArray    
+
+    ///////////////////////////////////////////////////////////////
+    ////// Event functions ////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+    // Sets the onclick icon next image function name. Only the name is input
+    setOnclickNextImageFunctionName(i_onclick_icon_next_image_function_name) 
+    {
+      this.m_onclick_icon_next_image_function_name = i_onclick_icon_next_image_function_name;
 
     } // setOnclickIconOneFunctionName  
 
-    // Sets the onclick icon two function name. Only the name is input
-    setOnclickIconTwoFunctionName(i_onclick_icon_two_function_name) 
+    // Sets the onclick icon previous image function name. Only the name is input
+    setOnclickPrevImageFunctionName(i_onclick_icon_prev_image_function_name) 
     {
-      this.m_onclick_icon_two_function_name = i_onclick_icon_two_function_name;
+      this.m_onclick_icon_prev_image_function_name = i_onclick_icon_prev_image_function_name;
 
-    } // setOnclickIconTwoFunctionName  
+    } // setOnclickPrevImageFunctionName  
 
-    // Sets the onclick icon three function name. Only the name is input
-    setOnclickIconThreeFunctionName(i_onclick_icon_three_function_name) 
+    // Sets the onclick icon full screen image function name. Only the name is input
+    setOnclickFullScreenImageFunctionName(i_onclick_icon_full_screen_image_function_name) 
     {
-      this.m_onclick_icon_three_function_name = i_onclick_icon_three_function_name;
+      this.m_onclick_icon_full_screen_image_function_name = i_onclick_icon_full_screen_image_function_name;
 
-    } // setOnclickIconThreeFunctionName  
+    } // setOnclickFullScreenImageFunctionName  
 
-    // Sets the onclick icon four function name. Only the name is input
-    setOnclickIconFourFunctionName(i_onclick_icon_four_function_name) 
+    // Sets the onclick icon close image function name. Only the name is input
+    setOnclickCloseImageFunctionName(i_onclick_icon_close_image_function_name) 
     {
-      this.m_onclick_icon_four_function_name = i_onclick_icon_four_function_name;
+      this.m_onclick_icon_close_image_function_name = i_onclick_icon_close_image_function_name;
 
-    } // setOnclickIconFourFunctionName  
+    } // setOnclickCloseImageFunctionName  
 
-    // Sets the onclick icon five function name. Only the name is input
-    setOnclickIconFiveFunctionName(i_onclick_icon_five_function_name) 
-    {
-      this.m_onclick_icon_five_function_name = i_onclick_icon_five_function_name;
-
-    } // setOnclickIconFiveFunctionName  
-
-    // Sets the onclick icon six function name. Only the name is input
-    setOnclickIconSixFunctionName(i_onclick_icon_six_function_name) 
-    {
-      this.m_onclick_icon_six_function_name = i_onclick_icon_six_function_name;
-
-    } // setOnclickIconSixFunctionName  
-
-    // Set styles for the group div with icons. Separate with semicolon
-    setStyleIconsGroupString(i_style_icons_group)
-    {
-        this.m_style_icons_group = i_style_icons_group;
-
-    } // setStyleIconsGroupString  
-
-    // Set styles for the display image icon one element. Separate with semicolon
-    setStyleIconOneString(i_style_icon_one)
-    {
-        this.m_style_icon_one = i_style_icon_one;
-
-    } // setStyleIconOneString  
-
-    // Set styles for the display image icon two element. Separate with semicolon
-    setStyleIconTwoString(i_style_icon_two)
-    {
-        this.m_style_icon_two = i_style_icon_two;
-
-    } // setStyleIconTwoString  
-
-    // Set styles for the display image icon three element. Separate with semicolon
-    setStyleIconThreeString(i_style_icon_three)
-    {
-        this.m_style_icon_three = i_style_icon_three;
-
-    } // setStyleIconThreeString  
-
-    // Set styles for the display image icon four element. Separate with semicolon
-    setStyleIconFourString(i_style_icon_four)
-    {
-        this.m_style_icon_four = i_style_icon_four;
-
-    } // setStyleIconFourString  
-
-    // Set styles for the display image icon five element. Separate with semicolon
-    setStyleIconFiveString(i_style_icon_five)
-    {
-        this.m_style_icon_five = i_style_icon_five;
-
-    } // setStyleIconFourString  
-
-    // Set styles for the display image icon six element. Separate with semicolon
-    setStyleIconSixString(i_style_icon_six)
-    {
-        this.m_style_icon_six = i_style_icon_six;
-
-    } // setStyleIconSixString  
-
-    // Set styles for the display image picture element. Separate with semicolon
-    // Function sets clear:both; height: m_image_container_height
+   // Set styles for the display image picture element. Separate with semicolon
+    // Function sets clear:both; height: m_image_container_height and 
+    // the width (setImageContainerWidth)
     setStylePictureContainerString(i_style_picture_container)
     {
         this.m_style_picture_container = i_style_picture_container;
 
-    } // setStylePictureContainerString  
+    } // setStylePictureContainerString    
+
+    // Set the width of the image picture container element
+    // Default value ie 92%
+    setImageContainerWidth(i_width_picture_container)
+    {
+        this.m_width_picture_container = i_width_picture_container;
+
+    } // setImageContainerWidth
+
+    ///////////////////////////////////////////////////////////////
+    ////// Data for ImageDisplayText //////////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+     // Set styles for label all text. Separate with semicolon
+     setStyleLabelAllTextString(i_style_label_all_text)
+     {
+         this.m_display_image_text.m_style_label_all_text = i_style_label_all_text;
+ 
+     } // setStyleLabelAllTextString
 
      // Set styles for the text group all element. Separate with semicolon
-    setStyleTextGroupAll(i_style_text_group_all)
-    {
-        this.m_style_text_group_all = i_style_text_group_all;
-
-    } // setStyleTextGroupAll
-       
-    // Set styles for the text group one element. Separate with semicolon
-    setStyleTextGroupOne(i_style_text_group_one)
-    {
-        this.m_style_text_group_one = i_style_text_group_one;
-
-    } // setStyleTextGroupOne
-
-    // Set styles for the text group two element. Separate with semicolon
-    setStyleTextGroupTwo(i_style_text_group_two)
-    {
-        this.m_style_text_group_two = i_style_text_group_two;
-
-    } // setStyleTextGroupTwo        
-       
-    // Set styles for text one. Separate with semicolon
-    setStylTextOneString(i_style_text_one)
-    {
-        this.m_style_text_one = i_style_text_one;
-
-    } // setStylTextOneString
-
-    // Set styles for text two. Separate with semicolon
-    setStylTextTwoString(i_style_text_two)
-    {
-        this.m_style_text_two = i_style_text_two;
-
-    } // setStylTextTwoString
-
-    // Set styles for text three. Separate with semicolon
-    setStylTextThreeString(i_style_text_three)
-    {
-        this.m_style_text_three = i_style_text_three;
-
-    } // setStylTextThreeString 
-
-    // Set styles for text three. Separate with semicolon
-    setStylTextFourString(i_style_text_four)
-    {
-        this.m_style_text_four = i_style_text_four;
-
-    } // setStylTextFourString 
-
-    // Returns the identity string for the picture container element
-    getIdPictureContainer()
-    {
-        var ret_id_picure_str = 'id_display_image_';
-
-        ret_id_picure_str = ret_id_picure_str + this.m_id_my_fctn_str;
-
-        return ret_id_picure_str;
+     setStyleTextGroupAll(i_style_text_group_all)
+     {
+         this.m_display_image_text.m_style_text_group_all = i_style_text_group_all;
+ 
+     } // setStyleTextGroupAll
         
-    } // getIdPictureContainer
-
-    // Returns the HTML string that defines the picture element
-    getPictureHtmlString(i_n_tabs)
-    {
-        var picture_container_style_str = 'clear:both; height: ' + this.m_image_container_height;
-
-        if (this.m_style_picture_container.length > 0)
-        {
-            picture_container_style_str = picture_container_style_str + '; ' + this.m_style_picture_container;
-        }
-
-        if (this.m_display_div_borders.length > 0)
-        {
-            picture_container_style_str = picture_container_style_str + '; border: 1px solid blue';
-        }
-
-        if (this.m_image_file_name.length == 0)
-        {
-            this.m_image_file_name = this.m_image_deault_file_name;
-        }
+     // Set styles for the text group one element. Separate with semicolon
+     setStyleTextGroupOne(i_style_text_group_one)
+     {
+         this.m_display_image_text.m_style_text_group_one = i_style_text_group_one;
+ 
+     } // setStyleTextGroupOne
+ 
+     // Set styles for the text group two element. Separate with semicolon
+     setStyleTextGroupTwo(i_style_text_group_two)
+     {
+         this.m_display_image_text.m_style_text_group_two = i_style_text_group_two;
+ 
+     } // setStyleTextGroupTwo        
         
-        var image_width = this.m_image_container_height; // TODO 
-
-        var inner_html = UtilHtml.getImgStyleString(this.m_image_file_name, 'Guest Image', '', this.m_image_style_str, image_width, '', '');
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdPictureContainer(), picture_container_style_str, inner_html, i_n_tabs+1);
-
-    } // getPictureHtmlString
-
-    // Returns the identity of the text group all div
-    getIdTextGroupAllDiv()
-    {
-        return 'id_text_group_all_div_' + this.m_id_my_fctn_str;
-
-    } // getIdTextGroupAllDiv
-
-    // Returns the element text group all div
-    getElementTextGroupAllDiv()
-    {
-        return document.getElementById(this.getIdTextGroupAllDiv());
-    }
-
-    // Hide element div text group all div
-    hideElementTextGroupAllDiv()
-    {
-        this.getElementTextGroupAllDiv().style.display = "none";
-
-    } // hideElementTextGroupAllDiv
-
-    // Display element div text group all div
-    displayElementTextGroupAllDiv()
-    {
-        this.getElementTextGroupAllDiv().style.display = "block";
-        
-    } // hideElementTextGroupAllDiv
-
-    // Get the HTML string defining the text group all div
-    getTextGroupAllDivHtmlString(i_n_tabs)
-    {
-        var text_group_all_div_style_str = '';
-
-        if (this.m_display_div_borders)
-        {
-            text_group_all_div_style_str = text_group_all_div_style_str + '; border: 1px solid blue';
-        }
-        
-        if (this.m_style_text_group_all.length > 0)
-        {
-            text_group_all_div_style_str = text_group_all_div_style_str + '; ' + this.m_style_text_group_all;
-        }
-
-        var text_group_all_inner_html = '';
-		
-        text_group_all_inner_html = text_group_all_inner_html + this.getTextGroupOneDivHtmlString(i_n_tabs+1);
-
-        text_group_all_inner_html = text_group_all_inner_html + this.getTextGroupTwoDivHtmlString(i_n_tabs+1);
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdTextGroupAllDiv(), text_group_all_div_style_str, text_group_all_inner_html, i_n_tabs+1);
-
-    } // getTextGroupAllDivHtmlString
-
-    // Returns the identity of the text group one div
-    getIdTextGroupOneDiv()
-    {
-        return 'id_text_group_one_div_' + this.m_id_my_fctn_str;
-
-    } // getIdTextGroupOneDiv
-
-    // Returns the element text group one div
-    getElementTextGroupOneDiv()
-    {
-        return document.getElementById(this.getIdTextGroupOneDiv());
-    }
-
-    // Hide element div text group one div
-    hideElementTextGroupOneDiv()
-    {
-        this.getElementTextGroupOneDiv().style.display = "none";
-
-    } // hideElementTextGroupOneDiv
-
-    // Display element div text group one div
-    displayElementTextGroupOneDiv()
-    {
-        this.getElementTextGroupOneDiv().style.display = "block";
-        
-    } // hideElementTextGroupOneDiv
-
-    // Returns the identity of the text group two div
-    getIdTextGroupTwoDiv()
-    {
-        return 'id_text_group_two_div_' + this.m_id_my_fctn_str;
-
-    } // getIdTextGroupTwoDiv
-
-    // Returns the element text group two div
-    getElementTextGroupTwoDiv()
-    {
-        return document.getElementById(this.getIdTextGroupTwoDiv());
-    }
-
-    // Hide element div text group two div
-    hideElementTextGroupTwoDiv()
-    {
-        this.getElementTextGroupTwoDiv().style.display = "none";
-
-    } // hideElementTextGroupTwoDiv
-
-    // Display element div text group two div
-    displayElementTextGroupTwoDiv()
-    {
-        this.getElementTextGroupTwoDiv().style.display = "block";
-        
-    } // hideElementTextGroupTwoDiv
-
-
-    // Get the HTML string defining the text group one div
-    getTextGroupOneDivHtmlString(i_n_tabs)
-    {
-        var text_group_one_div_style_str = '';
-
-        if (this.m_display_div_borders)
-        {
-            text_group_one_div_style_str = text_group_one_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_text_group_one.length > 0)
-        {
-            text_group_one_div_style_str = text_group_one_div_style_str + '; ' + this.m_style_text_group_one;
-        }
-
-        var text_group_one_inner_html = '';
-		
-        text_group_one_inner_html = text_group_one_inner_html + this.getTextOneDivHtmlString(i_n_tabs+1);
-
-        text_group_one_inner_html = text_group_one_inner_html + this.getTextTwoDivHtmlString(i_n_tabs+1);
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdTextGroupOneDiv(), text_group_one_div_style_str, text_group_one_inner_html, i_n_tabs+1);
-
-    } // getTextGroupOneDivHtmlString
-
-    // Get the HTML string defining the text group two div
-    getTextGroupTwoDivHtmlString(i_n_tabs)
-    {
-        var text_group_two_div_style_str = '';
-
-        if (this.m_display_div_borders)
-        {
-            text_group_two_div_style_str = text_group_two_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_text_group_two.length > 0)
-        {
-            text_group_two_div_style_str = text_group_two_div_style_str + '; ' + this.m_style_text_group_two;
-        }
-
-        var text_group_two_inner_html = '';
-		
-        text_group_two_inner_html = text_group_two_inner_html + this.getTextThreeDivHtmlString(i_n_tabs+1);
-
-        text_group_two_inner_html = text_group_two_inner_html + this.getTextFourDivHtmlString(i_n_tabs+1);
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdTextGroupTwoDiv(), text_group_two_div_style_str, text_group_two_inner_html, i_n_tabs+1);
-
-    } // getTextGroupTwoDivHtmlString
-
-
-    // Returns the identity of the text one div
-    getIdTextOneDiv()
-    {
-        return 'id_text_one_div_' + this.m_id_my_fctn_str;
-
-    } // getIdTextOneDiv
-
-    // Returns the element text one div
-    getElementTextOneDiv()
-    {
-        return document.getElementById(this.getIdTextOneDiv());
-    }
-
-    // Hide element div text one div
-    hideElementTextOneDiv()
-    {
-        this.getElementTextOneDiv().style.display = "none";
-
-    } // hideElementTextOneDiv
-
-    // Display element div text one div
-    displayElementTextOneDiv()
-    {
-        this.getElementTextOneDiv().style.display = "block";
-        
-    } // hideElementTextOneDiv
-
-    // Get the HTML string defining the text one div
-    getTextOneDivHtmlString(i_n_tabs)
-    {
-        var text_one_div_style_str = '';
-
-        if (this.m_display_div_borders)
-        {
-            text_one_div_style_str = text_one_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_text_one.length > 0)
-        {
-            text_one_div_style_str = text_one_div_style_str + '; ' + this.m_style_text_one;
-        }
-
-        var text_one_inner_html = 'Place holder div for text one';
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdTextOneDiv(), text_one_div_style_str, text_one_inner_html, i_n_tabs+1);
-
-    } // getTextOneDivHtmlString
-
-    // Returns the identity of the text two div
-    getIdTextTwoDiv()
-    {
-        return 'id_text_two_div_' + this.m_id_my_fctn_str;
-
-    } // getIdTextTwoDiv
-
-    // Returns the element text two div
-    getElementTextTwoDiv()
-    {
-        return document.getElementById(this.getIdTextTwoDiv());
-    }
-
-    // Hide element div text two div
-    hideElementTextTwoDiv()
-    {
-        this.getElementTextTwoDiv().style.display = "none";
-
-    } // hideElementTextTwoDiv
-
-    // Display element div text two div
-    displayElementTextTwoDiv()
-    {
-        this.getElementTextTwoDiv().style.display = "block";
-        
-    } // hideElementTextTwoDiv
-
-    // Get the HTML string defining the text two div
-    getTextTwoDivHtmlString(i_n_tabs)
-    {
-        var text_two_div_style_str = '';
-
-        if (this.m_display_div_borders)
-        {
-            text_two_div_style_str = text_two_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_text_two.length > 0)
-        {
-            text_two_div_style_str = text_two_div_style_str + '; ' + this.m_style_text_two;
-        }
-
-        var text_two_inner_html = 'Place holder div for text two';
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdTextTwoDiv(), text_two_div_style_str, text_two_inner_html, i_n_tabs+1);
-
-    } // getTextTwoDivHtmlString
-
-    // Returns the identity of the text three div
-    getIdTextThreeDiv()
-    {
-        return 'id_text_three_div_' + this.m_id_my_fctn_str;
-
-    } // getIdTextThreeDiv
-
-    // Returns the element text three div
-    getElementTextThreeDiv()
-    {
-        return document.getElementById(this.getIdTextThreeDiv());
-    }
-
-    // Hide element div text three div
-    hideElementTextThreeDiv()
-    {
-        this.getElementTextThreeDiv().style.display = "none";
-
-    } // hideElementTextThreeDiv
-
-    // Display element div text three div
-    displayElementTextThreeDiv()
-    {
-        this.getElementTextThreeDiv().style.display = "block";
-        
-    } // hideElementTextThreeDiv
-
-    // Get the HTML string defining the text three div
-    getTextThreeDivHtmlString(i_n_tabs)
-    {
-        var text_three_div_style_str = '';
-
-        if (this.m_display_div_borders)
-        {
-            text_three_div_style_str = text_three_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_text_three.length > 0)
-        {
-            text_three_div_style_str = text_three_div_style_str + '; ' + this.m_style_text_three;
-        }
-
-        var text_three_inner_html = 'Place holder div for text three';
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdTextThreeDiv(), text_three_div_style_str, text_three_inner_html, i_n_tabs+1);
-
-    } // getTextThreeDivHtmlString
-
-    // Returns the identity of the text four div
-    getIdTextFourDiv()
-    {
-        return 'id_text_four_div_' + this.m_id_my_fctn_str;
-
-    } // getIdTextFourDiv
-
-    // Returns the element text four div
-    getElementTextFourDiv()
-    {
-        return document.getElementById(this.getIdTextFourDiv());
-    }
-
-    // Hide element div text four div
-    hideElementTextFourDiv()
-    {
-        this.getElementTextFourDiv().style.display = "none";
-
-    } // hideElementTextFourDiv
-
-    // Display element div text four div
-    displayElementTextFourDiv()
-    {
-        this.getElementTextFourDiv().style.display = "block";
-        
-    } // hideElementTextFourDiv
-
-    // Get the HTML string defining the text four div
-    getTextFourDivHtmlString(i_n_tabs)
-    {
-        var text_four_div_style_str = '';
-
-        if (this.m_display_div_borders)
-        {
-            text_four_div_style_str = text_four_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_text_four.length > 0)
-        {
-            text_four_div_style_str = text_four_div_style_str + '; ' + this.m_style_text_four;
-        }
-
-        var text_four_inner_html = 'Place holder div for text four';
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdTextFourDiv(), text_four_div_style_str, text_four_inner_html, i_n_tabs+1);
-
-    } // getTextFourDivHtmlString
-
-
-    // Returns the identity of the icon one
-    getIdIconOneDiv()
-    {
-        return 'id_icon_one_div_' + this.m_id_my_fctn_str;
-
-    } // getIdIconOneDiv
-
-    // Returns the element icon one
-    getElementIconOneDiv()
-    {
-        return document.getElementById(this.getIdIconOneDiv());
-    }
-
-    // Hide element div icon one
-    hideElementIconOneDiv()
-    {
-        this.getElementIconOneDiv().style.display = "none";
-
-    } // hideElementIconOneDiv
-
-    // Display element div icon one
-    displayElementIconOneDiv()
-    {
-        this.getElementIconOneDiv().style.display = "block";
-        
-    } // hideElementIconOneDiv
-
-    // Get the HTML string defining the div icon one
-    getIconOneDivHtmlString(i_n_tabs)
-    {
-        var icon_one_div_style_str = 'width: auto';
-
-        if (this.m_display_div_borders)
-        {
-            icon_one_div_style_str = icon_one_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_icon_one.length > 0)
-        {
-            icon_one_div_style_str = icon_one_div_style_str + '; ' + this.m_style_icon_one;
-        }
-
-        var image_width = this.m_icon_one_width;
-
-        var icon_id = '';
-        var icon_styles_str = 'cursor: pointer';
-
-        var icon_one_inner_html = UtilHtml.getDivElementIconStyleString(icon_id, icon_styles_str, this.m_icon_one_file_name, image_width, this.m_onclick_icon_one_function_name, '', i_n_tabs+1)
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdIconOneDiv(), icon_one_div_style_str, icon_one_inner_html, i_n_tabs+1);
-
-    } // getIconOneDivHtmlString
-
-    // Returns the identity of the icon two
-    getIdIconTwoDiv()
-    {
-        return 'id_icon_two_div_' + this.m_id_my_fctn_str;
-
-    } // getIdIconTwoDiv
-
-    // Returns the element icon two
-    getElementIconTwoDiv()
-    {
-        return document.getElementById(this.getIdIconTwoDiv());
-    }
-
-    // Hide element div icon two
-    hideElementIconTwoDiv()
-    {
-        this.getElementIconTwoDiv().style.display = "none";
-
-    } // hideElementIconTwoDiv
-
-    // Display element div icon two
-    displayElementIconTwoDiv()
-    {
-        this.getElementIconTwoDiv().style.display = "block";
-        
-    } // hideElementIconTwoDiv
-
-    // Get the HTML string defining the div icon two
-    getIconTwoDivHtmlString(i_n_tabs)
-    {
-        var icon_two_div_style_str = 'width: auto';
-    
-        if (this.m_display_div_borders)
-        {
-            icon_two_div_style_str = icon_two_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_icon_two.length > 0)
-        {
-            icon_two_div_style_str = icon_two_div_style_str + '; ' + this.m_style_icon_two;
-        }
-
-        var image_width = this.m_icon_two_width;
-
-        var icon_id = '';
-        var icon_styles_str = 'cursor: pointer';
-
-        var icon_two_inner_html = UtilHtml.getDivElementIconStyleString(icon_id, icon_styles_str, this.m_icon_two_file_name, image_width, this.m_onclick_icon_two_function_name, '', i_n_tabs+1)
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdIconTwoDiv(), icon_two_div_style_str, icon_two_inner_html, i_n_tabs+1);
-
-    } // getIconTwoDivHtmlString
-
-    // Returns the identity of the icon three
-    getIdIconThreeDiv()
-    {
-        return 'id_icon_three_div_' + this.m_id_my_fctn_str;
-
-    } // getIdIconThreeDiv
-
-    // Returns the element icon three
-    getElementIconThreeDiv()
-    {
-        return document.getElementById(this.getIdIconThreeDiv());
-    }
-
-    // Hide element div icon three
-    hideElementIconThreeDiv()
-    {
-        this.getElementIconThreeDiv().style.display = "none";
-
-    } // hideElementIconThreeDiv
-
-    // Display element div icon three
-    displayElementIconThreeDiv()
-    {
-        this.getElementIconThreeDiv().style.display = "block";
-        
-    } // hideElementIconThreeDiv
-
-    // Get the HTML string defining the div icon three
-    getIconThreeDivHtmlString(i_n_tabs)
-    {
-        var icon_three_div_style_str = 'width: auto';
-
-        if (this.m_display_div_borders)
-        {
-            icon_three_div_style_str = icon_three_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_icon_three.length > 0)
-        {
-            icon_three_div_style_str = icon_three_div_style_str + '; ' + this.m_style_icon_three;
-        }
-
-        var image_width = this.m_icon_three_width;
-
-        var icon_id = '';
-        var icon_styles_str = 'cursor: pointer';
-
-        var icon_three_inner_html = UtilHtml.getDivElementIconStyleString(icon_id, icon_styles_str, this.m_icon_three_file_name, image_width, this.m_onclick_icon_three_function_name, '', i_n_tabs+1)
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdIconThreeDiv(), icon_three_div_style_str, icon_three_inner_html, i_n_tabs+1);
-
-    } // getIconThreeDivHtmlString
-
-    // Returns the identity of the icon four
-    getIdIconFourDiv()
-    {
-        return 'id_icon_four_div_' + this.m_id_my_fctn_str;
-
-    } // getIdIconFourDiv
-
-    // Returns the element icon four
-    getElementIconFourDiv()
-    {
-        return document.getElementById(this.getIdIconFourDiv());
-    }
-
-    // Hide element div icon four
-    hideElementIconFourDiv()
-    {
-        this.getElementIconFourDiv().style.display = "none";
-
-    } // hideElementIconFourDiv
-
-    // Display element div icon four
-    displayElementIconFourDiv()
-    {
-        this.getElementIconFourDiv().style.display = "block";
-        
-    } // hideElementIconFourDiv
-
-    // Get the HTML string defining the div icon four
-    getIconFourDivHtmlString(i_n_tabs)
-    {
-        var icon_four_div_style_str = 'width: auto';
-
-        if (this.m_display_div_borders)
-        {
-            icon_four_div_style_str = icon_four_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_icon_four.length > 0)
-        {
-            icon_four_div_style_str = icon_four_div_style_str + '; ' + this.m_style_icon_four;
-        }
-
-        var image_width = this.m_icon_four_width;
-
-        var icon_id = '';
-        var icon_styles_str = 'cursor: pointer';
-
-        var icon_four_inner_html = UtilHtml.getDivElementIconStyleString(icon_id, icon_styles_str, this.m_icon_four_file_name, image_width, this.m_onclick_icon_four_function_name, '', i_n_tabs+1)
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdIconFourDiv(), icon_four_div_style_str, icon_four_inner_html, i_n_tabs+1);
-
-    } // getIconFourDivHtmlString
-
-
-    // Returns the identity of the icon five
-    getIdIconFiveDiv()
-    {
-        return 'id_icon_five_div_' + this.m_id_my_fctn_str;
-
-    } // getIdIconFiveDiv
-
-    // Returns the element icon five
-    getElementIconFiveDiv()
-    {
-        return document.getElementById(this.getIdIconFiveDiv());
-    }
-
-    // Hide element div icon five
-    hideElementIconFiveDiv()
-    {
-        this.getElementIconFiveDiv().style.display = "none";
-
-    } // hideElementIconFiveDiv
-
-    // Display element div icon five
-    displayElementIconFiveDiv()
-    {
-        this.getElementIconFiveDiv().style.display = "block";
-        
-    } // hideElementIconFiveDiv
-
-    // Get the HTML string defining the div icon five
-    getIconFiveDivHtmlString(i_n_tabs)
-    {
-        var icon_five_div_style_str = 'width: auto';
-
-        if (this.m_display_div_borders)
-        {
-            icon_five_div_style_str = icon_five_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_icon_five.length > 0)
-        {
-            icon_five_div_style_str = icon_five_div_style_str + '; ' + this.m_style_icon_five;
-        }
-
-        var image_width = this.m_icon_five_width;
-
-        var icon_id = '';
-        var icon_styles_str = 'cursor: pointer';
-
-        var icon_five_inner_html = UtilHtml.getDivElementIconStyleString(icon_id, icon_styles_str, this.m_icon_five_file_name, image_width, this.m_onclick_icon_five_function_name, '', i_n_tabs+1)
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdIconFiveDiv(), icon_five_div_style_str, icon_five_inner_html, i_n_tabs+1);
-
-    } // getIconFiveDivHtmlString
-
-    // Returns the identity of the icon six
-    getIdIconSixDiv()
-    {
-        return 'id_icon_six_div_' + this.m_id_my_fctn_str;
-
-    } // getIdIconSixDiv
-
-    // Returns the element icon six
-    getElementIconSixDiv()
-    {
-        return document.getElementById(this.getIdIconSixDiv());
-    }
-
-    // Hide element div icon six
-    hideElementIconSixDiv()
-    {
-        this.getElementIconSixDiv().style.display = "none";
-
-    } // hideElementIconSixDiv
-
-    // Display element div icon six
-    displayElementIconSixDiv()
-    {
-        this.getElementIconSixDiv().style.display = "block";
-        
-    } // hideElementIconSixDiv
-
-    // Get the HTML string defining the div icon six
-    getIconSixDivHtmlString(i_n_tabs)
-    {
-        var icon_six_div_style_str = 'width: auto';
-
-        if (this.m_display_div_borders)
-        {
-            icon_six_div_style_str = icon_six_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_icon_six.length > 0)
-        {
-            icon_six_div_style_str = icon_six_div_style_str + '; ' + this.m_style_icon_six;
-        }
-
-        var image_width = this.m_icon_six_width;
-
-        var icon_id = '';
-        var icon_styles_str = 'cursor: pointer';
-
-        var icon_six_inner_html = UtilHtml.getDivElementIconStyleString(icon_id, icon_styles_str, this.m_icon_six_file_name, image_width, this.m_onclick_icon_six_function_name, '', i_n_tabs+1)
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdIconSixDiv(), icon_six_div_style_str, icon_six_inner_html, i_n_tabs+1);
-
-    } // getIconSixDivHtmlString
-
-    // Returns the identity of the icons group div
-    getIdIconsGroupDiv()
-    {
-        return 'id_icons_group_div_' + this.m_id_my_fctn_str;
-
-    } // getIdIconsGroupDiv
-
-    // Returns the element icons group div
-    getElementIconsGroupDiv()
-    {
-        return document.getElementById(this.getIdIconsGroupDiv());
-    }
-
-    // Hide element div icons group div
-    hideElementIconsGroupDiv()
-    {
-        this.getElementIconsGroupDiv().style.display = "none";
-
-    } // hideElementIconsGroupDiv
-
-    // Display element div icons group div
-    displayElementIconsGroupDiv()
-    {
-        this.getElementIconsGroupDiv().style.display = "block";
-        
-    } // hideElementIconsGroupDiv
-
-    // Get the HTML string defining the div icons group div
-    getIconsGroupDivHtmlString(i_n_tabs)
-    {
-        var icons_group_div_style_str = 'width: auto';
-
-        if (this.m_display_div_borders)
-        {
-            icons_group_div_style_str = icons_group_div_style_str + '; border: 1px solid yellow';
-        }
-
-        if (this.m_style_icons_group.length > 0)
-        {
-            icons_group_div_style_str = icons_group_div_style_str + '; ' + this.m_style_icons_group;
-        }
-
-        var icons_group_inner_html = '';
-
-        icons_group_inner_html = icons_group_inner_html + this.getIconOneDivHtmlString(i_n_tabs+1);
-
-        icons_group_inner_html = icons_group_inner_html + this.getIconTwoDivHtmlString(i_n_tabs+1);
-
-        icons_group_inner_html = icons_group_inner_html + this.getIconThreeDivHtmlString(i_n_tabs+1);
-
-        icons_group_inner_html = icons_group_inner_html + this.getIconFourDivHtmlString(i_n_tabs+1);
-
-        icons_group_inner_html = icons_group_inner_html + this.getIconFiveDivHtmlString(i_n_tabs+1);
-
-        icons_group_inner_html = icons_group_inner_html + this.getIconSixDivHtmlString(i_n_tabs+1);
-
-        return UtilHtml.getDivElementLeafStyleString(this.getIdIconsGroupDiv(), icons_group_div_style_str, icons_group_inner_html, i_n_tabs+1);
-
-    } // getIconsGroupDivHtmlString
-
-    // Set flag telling if div borders shall be displayed for debugging to true
-    displayDivBorders()
-    {
-        this.m_display_div_borders = true;
-
-    } // setDisplayDivBorders
-
-    // Set flag telling if div borders shall be displayed for debugging to false
-    hideDivBorders()
-    {
-        this.m_display_div_borders = false;
-
-    } // setDisplayDivBorders
+     // Set styles for text one. Separate with semicolon
+     setStylTextOneString(i_style_text_one)
+     {
+         this.m_display_image_text.m_style_text_one = i_style_text_one;
+ 
+     } // setStylTextOneString
+ 
+     // Set styles for text two. Separate with semicolon
+     setStylTextTwoString(i_style_text_two)
+     {
+         this.m_display_image_text.m_style_text_two = i_style_text_two;
+ 
+     } // setStylTextTwoString
+ 
+     // Set styles for text three. Separate with semicolon
+     setStylTextThreeString(i_style_text_three)
+     {
+         this.m_display_image_text.m_style_text_three = i_style_text_three;
+ 
+     } // setStylTextThreeString 
+ 
+     // Set styles for text three. Separate with semicolon
+     setStylTextFourString(i_style_text_four)
+     {
+         this.m_display_image_text.m_style_text_four = i_style_text_four;
+ 
+     } // setStylTextFourString 
+
+
+    ///////////////////////////////////////////////////////////////
+    ////// Get HTML String Functions //////////////////////////////
+    ///////////////////////////////////////////////////////////////
 
     checkInputData()
     {
@@ -1310,14 +645,140 @@ class DisplayImage
 
         var ret_html_str = '';
 
-        var ret_html_str = ret_html_str + this.getIconsGroupDivHtmlString(i_n_tabs);
+        var ret_html_str = ret_html_str + this.getDisplayImageToolbarsContainerString(i_n_tabs);
 
-        var ret_html_str = ret_html_str + this.getPictureHtmlString(i_n_tabs);
-
-        ret_html_str = ret_html_str + this.getTextGroupAllDivHtmlString(i_n_tabs);
+        ret_html_str = ret_html_str + this.getDisplayImageTextContainerString(i_n_tabs);
 
         return ret_html_str;
 
     } // getHtmlString
+
+    // Returns the HTML string defining the div container with the image element and
+    // the two image toolbars
+    getDisplayImageToolbarsContainerString(i_n_tabs)
+    {
+        var toolbar_style_str = 'float: left; width: 12px; background-color: black;  height: ' + this.m_image_container_height;
+
+        // toolbar_style_str = toolbar_style_str + '; border: 1px solid black'; // Debug
+        
+        var toolbar_inner_html = 'b'; 
+
+        var left_toolbar_html = 
+            UtilHtml.getDivElementLeafStyleMouseString(this.getIdLeftImageToolbarContainer(), 
+                        toolbar_style_str, 
+                        this.m_on_mouse_over_function_name, 
+                        this.m_on_mouse_out_function_name,                         
+                        toolbar_inner_html, i_n_tabs+2);
+
+        var picture_html = this.getPictureHtmlString(i_n_tabs+2);
+
+        var right_toolbar_html = 
+            UtilHtml.getDivElementLeafStyleMouseString(this.getIdRightImageToolbarContainer(), 
+                        toolbar_style_str, 
+                        this.m_on_mouse_over_function_name, 
+                        this.m_on_mouse_out_function_name, 
+                        toolbar_inner_html, i_n_tabs+2);
+
+
+        var image_and_toolbars_style_str = 'clear: both; width: 100%; overflow: hidden';
+
+        // image_and_toolbars_style_str = image_and_toolbars_style_str + '; border: 1px solid red'; // Debug
+
+        var image_and_toolbar_inner_html = left_toolbar_html + picture_html + right_toolbar_html;
+
+        return UtilHtml.getDivElementLeafStyleString(this.getIdDisplayImageToolbarsContainer(), 
+                        image_and_toolbars_style_str, image_and_toolbar_inner_html, i_n_tabs+1);
+
+    } // getDisplayImageToolbarsContainerString
+
+    // Returns the HTML string that defines the picture element
+    getPictureHtmlString(i_n_tabs)
+    {
+        var picture_container_style_str = 'float: left; width: ' + this.m_width_picture_container + '; height: ' + this.m_image_container_height;
+
+        if (this.m_style_picture_container.length > 0)
+        {
+            picture_container_style_str = picture_container_style_str + '; ' + this.m_style_picture_container;
+        }
+
+        if (this.m_display_div_borders)
+        {
+            picture_container_style_str = picture_container_style_str + '; border: 1px solid blue';
+        }
+
+        if (this.m_image_file_name.length == 0)
+        {
+            this.m_image_file_name = this.m_image_deault_file_name;
+        }
+        
+        var image_style_str = ''; // DisplayImage sets these attributes
+
+        // var image_width = this.m_image_container_height; // TODO 
+
+        var image_width = '95%'; //TODO QQQQQQQQQQQQQQQQQQQQQ
+
+        var inner_html = UtilHtml.getImgStyleString(this.m_image_file_name, 'Guest Image', '', image_style_str, image_width, '', '');
+
+        return UtilHtml.getDivElementLeafStyleString(this.getIdPictureContainer(), picture_container_style_str, inner_html, i_n_tabs+1);
+
+    } // getPictureHtmlString
+
+    // Returns the HTML string that defines the display image text element
+    getDisplayImageTextContainerString(i_n_tabs)
+    {
+        var text_container_style_str = 'clear: both';
+
+        var inner_html = this.m_display_image_text.getHtmlString(i_n_tabs+1);
+
+        return UtilHtml.getDivElementLeafStyleString(this.getIdDisplayImageTextContainer(), text_container_style_str, inner_html, i_n_tabs+1);
+
+    } // getDisplayImageTextContainerString
+
+
+    ///////////////////////////////////////////////////////////////
+    ////// Identity functions /////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+
+    // Returns the identity for the container for the image and the left and right toolbars
+    getIdDisplayImageToolbarsContainer()
+    {
+        return 'id_div_display_image_toolbars_container_' + this.m_id_my_fctn_str;
+
+    } // getIdDisplayImageToolbarsContainer
+
+    // Returns the picture container element
+    getElementPictureContainer()
+    {
+        return document.getElementById(this.getIdPictureContainer());
+
+    } // getElementPictureContainer
+
+    // Returns the identity string for the picture container element
+    getIdPictureContainer()
+    {
+        return 'id_display_image_' + this.m_id_my_fctn_str;;
+        
+    } // getIdPictureContainer
+
+    // Returns the identity for the image toolbar left container
+    getIdLeftImageToolbarContainer()
+    {
+        return 'id_container_left_image_toolbar_' + this.m_id_my_fctn_str;
+
+    } // getIdLeftImageToolbarContainer
+
+    // Returns the identity for the image toolbar right container
+    getIdRightImageToolbarContainer()
+    {
+        return 'id_container_right_image_toolbar_' + this.m_id_my_fctn_str;
+
+    } // getIdRightImageToolbarContainer
+
+    // Returns the identity for the DisplayImageText container
+    getIdDisplayImageTextContainer()
+    {
+        return 'id_div_display_image_text_container_' + this.m_id_my_fctn_str;
+
+    } // getIdDisplayImageTextContainer
 
 } // DisplayImage

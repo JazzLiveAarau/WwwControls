@@ -1,5 +1,5 @@
 // File: JazzToolbar.js
-// Date: 2024-03-08
+// Date: 2024-03-17
 // Author: Gunnar Lidén
 
 // File content
@@ -158,7 +158,7 @@ class JazzToolbar
         // The identity of the container for the control
         this.m_id_div_container = i_id_div_container;
 
-        // Object div wit identity m_id_div_container
+        // Container object div with the identity m_id_div_container
         this.m_el_div_container = null;
 
         // Flag telling if it is a horzontal toolbar.
@@ -411,7 +411,7 @@ class JazzToolbar
         return true;
 
     } // setIdentities
-
+        
     // Add element containers
     addElementContainers()
     {
@@ -532,5 +532,93 @@ class JazzToolbar
         return true;
 
     } // instantiate
+
+    // Hide icon
+    hideIcon(i_icon_number)
+    {
+        var current_el = this.getIconElement(i_icon_number);
+
+        if (null == current_el)
+        {
+            return;
+        }
+
+        current_el.style.display = 'none';
+
+    } // hideIcon
+
+    // Display icon
+    displayIcon(i_icon_number)
+    {
+        var current_el = this.getIconElement(i_icon_number);
+
+        if (null == current_el)
+        {
+            return;
+        }
+
+        current_el.style.display = 'block';
+
+    } // hideIcon
+
+    // Hide all icons
+    hideAllIconsInheritBackgroundColor()
+    {
+        var max_index = this.m_toolbar_data_array.length - 1;
+
+        for (var index_icon=0; index_icon <= max_index; index_icon++)
+        {
+            this.hideIcon(index_icon + 1);
+        }
+
+        this.m_el_div_container.style.background = 'inherit';
+
+    } // hideAllIconsInheritBackgroundColor
+
+    // Display all icons and set backgroundcolor
+    displayAllIcons()
+    {
+        var max_index = this.m_toolbar_data_array.length - 1;
+
+        for (var index_icon=0; index_icon <= max_index; index_icon++)
+        {
+            this.displayIcon(index_icon + 1);
+        }
+
+        this.m_el_div_container.style.background = 'black';
+
+    } // displayAllIcons
+
+    // Returns the icon element
+    getIconElement(i_icon_number)
+    {
+        var icon_index = i_icon_number - 1;
+
+        var max_index = this.m_toolbar_data_array - 1;
+
+        if (i_icon_number < 0)
+        {
+            alert("JazzToolbar.getIconElement Error icon_index= " + icon_index.toString());
+
+            return null;
+        }
+
+        if (i_icon_number > max_index)
+        {
+            alert("JazzToolbar.getIconElement Error icon_index= " + icon_index.toString() + 
+                        ' max_index= ' + max_index.toString());
+
+            return null;
+        }
+
+        var current_rec = this.m_toolbar_data_array[icon_index];
+
+        var current_id = current_rec.m_div_id;
+
+        var current_el = document.getElementById(current_id);
+
+        return current_el;
+
+    } // getIconElement
 
 } // JazzToolbar

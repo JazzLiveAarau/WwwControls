@@ -1,5 +1,5 @@
 // File: GridList.js
-// Date: 2023-10-25
+// Date: 2023-11-18
 // Author: Gunnar Lidén
 
 // File content
@@ -580,9 +580,11 @@ class GridList
             return '';
         }
 
-        var record_number = this.m_rec_number_array[i_record_index];
+        //20240318 var record_number = this.m_rec_number_array[i_record_index];
 
-        var event_str = this.getClickEventStatementString(record_number);
+        //20240318 var event_str = this.getClickEventStatementString(record_number);
+
+        var event_str = this.getClickEventStatementString(i_record_index);
 
         return UtilHtml.getDivElementGroupStyleEventString(this.getIdRecord(i_record_index), rec_styles_str, event_str, div_inner_html_array, i_n_tabs);
         

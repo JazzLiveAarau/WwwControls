@@ -1,5 +1,5 @@
 // File: Main.js
-// Date: 2024-04-08
+// Date: 2024-03-17
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -28,6 +28,9 @@ var g_icon = null;
 // Toolbar
 var g_toolbar = null;
 
+// Object of class DisplayImage
+var g_display_image = null;
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -39,17 +42,19 @@ var g_toolbar = null;
 // Main (onload) function for the controls test application 
 function initTestControls()
 {
+    createDisplayImage();
 
-    createTextBox();
+    // createTextBox();
 
-    createToolbar();
+    // createToolbar();
 
     // createIcon();
 
-    createControlUploadImageToServer();
+    // createControlUploadImageToServer();
  
 
 } // initTestControls
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Main Functions //////////////////////////////////////////////
@@ -58,6 +63,189 @@ function initTestControls()
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Create Controls And Events ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+// Create DisplayImage object
+function createDisplayImage()
+{
+
+    g_display_image = new DisplayImage('jazz_guests', getIdDivDisplayImageContainer());
+
+    setDisplayImageArrays();
+
+    setDisplayImageText();
+
+    setDisplayImageEventFunctions();
+
+    g_display_image.setImageContainerHeight('400px');
+
+    g_display_image.setImageContainerWidth('94%');
+
+    g_display_image.instantiate();
+
+    var active_rec_number = g_display_image.getActiveRecordNumber();
+
+    console.log("Active record number is " + active_rec_number.toString());
+
+} // createDisplayImage
+
+// Set the DisplayImageText event functions
+function setDisplayImageEventFunctions()
+{
+    g_display_image.setOnclickNextImageFunctionName('displayNextJazzGuestImage');
+
+    g_display_image.setOnclickPrevImageFunctionName('displayPreviousJazzGuestImage');
+
+    g_display_image.setOnclickFullScreenImageFunctionName('displayJazzGuestImageFullScreen');
+
+    g_display_image.setOnclickCloseImageFunctionName('closeJazzGuestImageWindow');
+
+    g_display_image.setMouseOverFunctionName('onMouseOverGuestImageToolbar');
+
+    g_display_image.setMouseOutFunctionName('onMouseOutGuestImageToolbar');
+
+} // setDisplayImageEventFunctions
+
+// Display next 
+function displayNextJazzGuestImage()
+{
+    g_display_image.setAndDisplayNextRecord();
+
+} // displayNextJazzGuestImage
+
+// Display previous 
+function displayPreviousJazzGuestImage()
+{
+    g_display_image.setAndDisplayPreviousRecord();
+
+} // displayPreviousJazzGuestImage
+
+function displayJazzGuestImageFullScreen()
+{
+    alert("displayJazzGuestImageFullScreen User clicked show image on full screen");
+
+} // displayJazzGuestImageFullScreen
+
+function closeJazzGuestImageWindow()
+{
+    //QQ alert("closeJazzGuestImageWindow User clicked close window");
+
+    g_display_image.hideImageContainerDiv();
+
+} // closeJazzGuestImageWindow
+
+// Mouse over image toolbar left or right
+function onMouseOverGuestImageToolbar()
+{
+    g_display_image.displayImageToolbars();
+
+} // onMouseOverGuestImageToolbar
+
+// Mouse out from image toolbar left or right
+function onMouseOutGuestImageToolbar()
+{
+    g_display_image.hideImageToolbars();
+
+} // onMouseOutGuestImageToolbar
+
+
+// Set the DisplayImageText object
+function setDisplayImageText()
+{
+    var b_desktop = true;
+
+    var font_size = '; font-size: 15px';
+    if (!b_desktop)
+    {
+        font_size = '; font-size: 10px';
+    }
+
+    var style_text_group_all = 'clear: both; overflow: hidden; background-color: black; color: white';
+    g_display_image.setStyleTextGroupAll(style_text_group_all);
+
+    var style_text_group_one = 'clear: both; overflow: hidden';
+    g_display_image.setStyleTextGroupOne(style_text_group_one);
+
+    var style_text_group_two = 'clear: both; overflow: hidden';
+    g_display_image.setStyleTextGroupTwo(style_text_group_two);
+
+    var style_text_one = 'float: left; padding: 5px; font-weight: bold' + font_size;
+    g_display_image.setStylTextOneString(style_text_one);
+
+    var style_text_two = 'float: right; padding: 5px; font-weight: bold' + font_size;;
+    g_display_image.setStylTextTwoString(style_text_two);
+
+    var style_text_three = 'clear:both; padding: 5px; text-align: center; font-style: italic; font-weight: bold' + font_size;;
+    g_display_image.setStylTextThreeString(style_text_three);
+
+    var style_text_four = 'clear:both; padding: 5px; font-style: italic; font-weight: bold' + font_size;;
+    g_display_image.setStylTextFourString(style_text_four);
+
+    //g_display_image.m_display_image_text.display();
+
+
+} // setDisplayImageText
+
+// Set the DisplayImage arrays
+function setDisplayImageArrays()
+{
+    var jazz_guest_array = getJazzGuestArray();
+
+    var rec_number_array = [];
+
+    var text_field_one_array = [];
+
+    var text_field_two_array = [];
+
+    var text_field_three_array = [];
+
+    var text_field_four_array = [];
+
+    var image_file_name_array = [];
+
+    for (var index_rec=0; index_rec < jazz_guest_array.length; index_rec++)
+    {
+        var current_rec = jazz_guest_array[index_rec];
+
+        var guest_year = current_rec.getYear();
+        var guest_month = current_rec.getMonth();
+        var guest_day = current_rec.getDay();
+        var guest_date = UtilDate.getSwissDateString(guest_year, guest_month, guest_day);
+
+        var guest_header = current_rec.getHeader();
+
+        var guest_names = current_rec.getNames();
+
+        var guest_text = current_rec.getText();
+
+        var text_one_str = guest_header;
+        var text_two_str = guest_date;
+        var text_three_str = guest_names;
+        var text_four_str = guest_text;
+
+        var image_file_name = current_rec.getFileName();
+
+        rec_number_array[index_rec] = current_rec.getRegNumber();
+
+        text_field_one_array[index_rec] = text_one_str;
+
+        text_field_two_array[index_rec] = text_two_str;
+
+        text_field_three_array[index_rec] = text_three_str;
+
+        text_field_four_array[index_rec] = text_four_str;
+
+        image_file_name_array[index_rec] = image_file_name;
+
+    } // index_rec
+
+    g_display_image.setRecordNumberArray(rec_number_array);
+    g_display_image.setRecordTextFieldOneArray(text_field_one_array);
+    g_display_image.setRecordTextFieldTwoArray(text_field_two_array);
+    g_display_image.setRecordTextFieldThreeArray(text_field_three_array);
+    g_display_image.setRecordTextFieldFourArray(text_field_four_array);
+    g_display_image.setRecordImageFileNameArray(image_file_name_array);
+
+} // setDisplayImageArrays
 
 // Create a toolbar
 function createToolbar()
@@ -302,8 +490,133 @@ function getIdDivToolbarContainer()
 
 } // getIdDivToolbarContainer
 
+// Returns the element display image container
+function getElementDivDisplayImageContainer()
+{
+    return document.getElementById(getIdDivDisplayImageContainer());
+
+} // getElementDivDisplayImageContainer
+
+// Returns the identity of the display image container
+function getIdDivDisplayImageContainer()
+{
+    return 'id_div_control_display_image';
+
+} // getIdDivDisplayImageContainer
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Get Id And Element Functions ////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Test Data Functions ///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Get test data array
+function getJazzGuestArray()
+{
+    var jazz_guest_array = []; 
+    jazz_guest_array[0] = new JazzGuest(); 
+    jazz_guest_array[0].setHeader("Stewy von Wattenwyl Trio"); 
+    jazz_guest_array[0].setText(""); 
+    jazz_guest_array[0].setNames("Gianin Flucher"); 
+    jazz_guest_array[0].setFileName("https://jazzliveaarau.ch/JazzGuests/d20060218_GianinFlucher.jpg"); 
+    jazz_guest_array[0].setFileType("IMG"); 
+    jazz_guest_array[0].setStatus("AddedOrCheckedRecordByAdmin"); 
+    jazz_guest_array[0].setBand("Stewy von Wattenwyl Trio"); 
+    jazz_guest_array[0].setMusicians("Stewy von Wattenwyl, Daniel Schläppi, Tobias Friedli"); 
+    jazz_guest_array[0].setYear(2006); 
+    jazz_guest_array[0].setMonth(2); 
+    jazz_guest_array[0].setDay(18); 
+    jazz_guest_array[0].setRemark("Sohn von Martin Flucher (Konzertbesucher)"); 
+    jazz_guest_array[0].setAvatar(""); 
+    jazz_guest_array[0].setEmail(""); 
+    jazz_guest_array[0].setTelephone(""); 
+    jazz_guest_array[0].setPublish("TRUE"); 
+    jazz_guest_array[0].setRegNumber(1); 
+    jazz_guest_array[1] = new JazzGuest(); 
+    jazz_guest_array[1].setHeader("Peter Schärli Trio featuring Ithamara Koorax"); 
+    jazz_guest_array[1].setText(""); 
+    jazz_guest_array[1].setNames("Peter Schärli, Ithamara Koorax, Markus Stalder, Thomas Dürst"); 
+    jazz_guest_array[1].setFileName("https://jazzliveaarau.ch/JazzGuests/d20061125_PeterScharli.jpg"); 
+    jazz_guest_array[1].setFileType("IMG"); 
+    jazz_guest_array[1].setStatus("AddedOrCheckedRecordByAdmin"); 
+    jazz_guest_array[1].setBand("Peter Schärli Trio featuring Ithamara Koorax"); 
+    jazz_guest_array[1].setMusicians("Peter Schärli, Ithamara Koorax, Markus Stalder, Thomas Dürst"); 
+    jazz_guest_array[1].setYear(2006); 
+    jazz_guest_array[1].setMonth(11); 
+    jazz_guest_array[1].setDay(25); 
+    jazz_guest_array[1].setRemark(""); 
+    jazz_guest_array[1].setAvatar(""); 
+    jazz_guest_array[1].setEmail(""); 
+    jazz_guest_array[1].setTelephone(""); 
+    jazz_guest_array[1].setPublish("TRUE"); 
+    jazz_guest_array[1].setRegNumber(2); 
+    jazz_guest_array[2] = new JazzGuest(); 
+    jazz_guest_array[2].setHeader("Erich Gandet Quintet"); 
+    jazz_guest_array[2].setText(""); 
+    jazz_guest_array[2].setNames("Erich Gandet, Bruno Gandet, Rougie Rothenbühler, Tico Keller, Hannes Hänggli"); 
+    jazz_guest_array[2].setFileName("https://jazzliveaarau.ch/JazzGuests/d20061209_ErichGandetQuintet.png"); 
+    jazz_guest_array[2].setFileType("IMG"); 
+    jazz_guest_array[2].setStatus("AddedOrCheckedRecordByAdmin"); 
+    jazz_guest_array[2].setBand("Erich Gandet Quintet"); 
+    jazz_guest_array[2].setMusicians("Erich Gandet, Bruno Gandet, Rougie Rothenbühler, Tico Keller, Hannes Hänggli"); 
+    jazz_guest_array[2].setYear(2006); 
+    jazz_guest_array[2].setMonth(12); 
+    jazz_guest_array[2].setDay(9); 
+    jazz_guest_array[2].setRemark(""); 
+    jazz_guest_array[2].setAvatar(""); 
+    jazz_guest_array[2].setEmail(""); 
+    jazz_guest_array[2].setTelephone(""); 
+    jazz_guest_array[2].setPublish("TRUE"); 
+    jazz_guest_array[2].setRegNumber(3); 
+    jazz_guest_array[3] = new JazzGuest(); 
+    jazz_guest_array[3].setHeader("Urban Spaces Quartet"); 
+    jazz_guest_array[3].setText(""); 
+    jazz_guest_array[3].setNames("Francis Petter, Edgar Marc Petter, Peter Hunziker, Bruno Huwyler"); 
+    jazz_guest_array[3].setFileName("https://jazzliveaarau.ch/JazzGuests/20070127_UrbanSpaces.png"); 
+    jazz_guest_array[3].setFileType("IMG"); 
+    jazz_guest_array[3].setStatus("AddedOrCheckedRecordByAdmin"); 
+    jazz_guest_array[3].setBand("Urban Spaces Quartet"); 
+    jazz_guest_array[3].setMusicians("Francis Petter, Edgar Marc Petter, Peter Hunziker, Bruno Huwyler"); 
+    jazz_guest_array[3].setYear(2007); 
+    jazz_guest_array[3].setMonth(1); 
+    jazz_guest_array[3].setDay(27); 
+    jazz_guest_array[3].setRemark("GaestebuchJazzLiveAarau. Erlaubnis Veronique Weiersmüller"); 
+    jazz_guest_array[3].setAvatar(""); 
+    jazz_guest_array[3].setEmail(""); 
+    jazz_guest_array[3].setTelephone(""); 
+    jazz_guest_array[3].setPublish("TRUE"); 
+    jazz_guest_array[3].setRegNumber(4); 
+    jazz_guest_array[4] = new JazzGuest(); 
+    jazz_guest_array[4].setHeader("Voice it"); 
+    jazz_guest_array[4].setText(""); 
+    jazz_guest_array[4].setNames("Lisette Spinnler"); 
+    jazz_guest_array[4].setFileName("https://jazzliveaarau.ch/JazzGuests/d20070210_VoiceIt.jpg"); 
+    jazz_guest_array[4].setFileType("IMG"); 
+    jazz_guest_array[4].setStatus("AddedOrCheckedRecordByAdmin"); 
+    jazz_guest_array[4].setBand("Voice it"); 
+    jazz_guest_array[4].setMusicians("Lisette Spinnler, Roland Köppel, Andreas Schnyder, Jean-Pierre Schaller"); 
+    jazz_guest_array[4].setYear(2007); 
+    jazz_guest_array[4].setMonth(2); 
+    jazz_guest_array[4].setDay(10); 
+    jazz_guest_array[4].setRemark(""); 
+    jazz_guest_array[4].setAvatar(""); 
+    jazz_guest_array[4].setEmail(""); 
+    jazz_guest_array[4].setTelephone(""); 
+    jazz_guest_array[4].setPublish("TRUE"); 
+    jazz_guest_array[4].setRegNumber(5); 
+    
+    return jazz_guest_array;
+
+} // getJazzGuestArray
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Test Data Functions /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Start Merge Code Functions //////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 // User clicked merge files. 
@@ -311,7 +624,7 @@ function getIdDivToolbarContainer()
 // /www/JazzScripts/. The directory name is defined in file MergeControls.php.
 function eventMergeFiles()
 {
-    var file_name = 'Controls_20240106.js';
+    var file_name = 'Controls_20240317.js';
 
     $.post
       ('PhpMerge/MergeControls.php',
@@ -335,4 +648,9 @@ function eventMergeFiles()
 	  
 
 } // eventMergeFiles
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// End Merge Code Functions ////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 

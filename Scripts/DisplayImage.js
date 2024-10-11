@@ -1,5 +1,5 @@
 // File: DisplayImage.js
-// Date: 2024-03-18
+// Date: 2024-10-11
 // Author: Gunnar Lidén
 
 // File content
@@ -717,7 +717,9 @@ class DisplayImage
 
         var image_width = '95%'; //TODO QQQQQQQQQQQQQQQQQQQQQ
 
-        var inner_html = UtilHtml.getImgStyleString(this.m_image_file_name, 'Guest Image', '', image_style_str, image_width, '', '');
+        var event_fctn = this.m_onclick_icon_full_screen_image_function_name + "()";
+
+        var inner_html = UtilHtml.getImgStyleString(this.m_image_file_name, 'Guest Image', '', image_style_str, image_width, event_fctn, '');
 
         return UtilHtml.getDivElementLeafStyleString(this.getIdPictureContainer(), picture_container_style_str, inner_html, i_n_tabs+1);
 

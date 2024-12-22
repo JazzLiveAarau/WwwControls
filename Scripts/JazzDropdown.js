@@ -1,5 +1,5 @@
 // File: JazzDropdown.js
-// Date: 2023-05-14
+// Date: 2024-12-22
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -310,7 +310,7 @@ class JazzDropdown
             ret_html_str = ret_html_str + ' title="' + this.m_title + '" ';
         }
 
-        ret_html_str = ret_html_str + '><br>'; 
+        ret_html_str = ret_html_str + '>'; 
 
         var n_options = this.m_drop_down_name_array.length;
 
@@ -339,7 +339,7 @@ class JazzDropdown
             }
 
             var option_str = '<option value="' + current_number_str + '">' +
-                                    current_name + '</option><br>';
+                                    current_name + '</option>';
 
             ret_html_str = ret_html_str + option_str;  
         }        

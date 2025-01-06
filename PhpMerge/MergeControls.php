@@ -36,6 +36,7 @@
 
 // Passed data from the calling function
 $file_name = $_POST['file_name'];
+$reservation_file_name = $_POST['reservation_file_name'];
 
 $file_content = file_get_contents('../Scripts/JazzButton.js');
 $file_content .= "\n" . file_get_contents('../Scripts/JazzTextBox.js');
@@ -59,11 +60,30 @@ $file_name_full = $dir_name . $file_name;
 
 $fp = fopen($file_name_full, 'w');
 if(!$fp)
-    die('Could not create / open js file for writing.');
+    die('Could not create / open js file for writing (JazzScripts).');
 if(fwrite($fp, $file_content) === false)
-    die('Could not write to js file.');
+    die('Could not write to js file (JazzScripts).');
 
-echo 'JavaScript files have been merged.';
+echo 'JavaScript files have been merged (JazzScripts).';
+
+$reservation_file_content = file_get_contents('../Scripts/JazzButton.js');
+$reservation_file_content .= "\n" . file_get_contents('../Scripts/JazzTextBox.js');
+$reservation_file_content .= "\n" . file_get_contents('../Scripts/JazzControlCheckBox.js');
+$reservation_file_content .= "\n" . file_get_contents('../Scripts/JazzDropdown.js');
+$reservation_file_content .= "\n" . file_get_contents('../Scripts/UtilControls.js');
+// $reservation_file_content .= "\n" . file_get_contents('../Scripts/JazzUploadImage.js');
+
+$reservation_dir_name= '../../ReservationLayout/Libs/';
+
+$reservation_file_name_full = $reservation_dir_name . $reservation_file_name;
+
+$fp_reservation = fopen($reservation_file_name_full, 'w');
+if(!$fp_reservation)
+    die('Could not create / open js file for writing (Reservation).');
+if(fwrite($fp_reservation, $reservation_file_content) === false)
+    die('Could not write to js file (Reservation).');
+
+echo 'JavaScript files have been merged (Reservation).';
  
 ?>
  

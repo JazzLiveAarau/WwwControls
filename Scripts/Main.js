@@ -1,5 +1,5 @@
 // File: Main.js
-// Date: 2024-03-17
+// Date: 2025-01-06
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -626,17 +626,20 @@ function eventMergeFiles()
 {
     var file_name = 'Controls_20240317.js';
 
+    var reservation_file_name = 'Controls_Reservation_20240317.js';
+
     $.post
       ('PhpMerge/MergeControls.php',
         {
-          file_name: file_name
+          file_name: file_name,
+          reservation_file_name: reservation_file_name
         },
         function(data_save,status_save)
 		{
             if (status_save == "success")
             {
-                alert("JavaScript files merged to " + file_name + 
-                " saved to server directory /www/JavaScripts/.");
+                alert("JavaScript files merged to " + file_name + " and " + reservation_file_name +
+                " saved to server directory /www/JavaScripts/ and www/ReservationLayout/Libs/.");
             }
             else
             {

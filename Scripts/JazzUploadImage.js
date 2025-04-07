@@ -636,7 +636,7 @@ class JazzUploadImage
         // It is necessary to set the height. Calling changeDefaultImageFile multiple times made the container height smaller and smaller
         var image_container_styles_str = ' margin-top: 10px; height: 60%; clear: both;'; 
 
-        var id_upload_image = JazzUploadImage.getIdDivUploadImage();
+        var id_div_upload_image = JazzUploadImage.getIdDivUploadImage();
 
         var image_styles_str = '';
 
@@ -649,7 +649,7 @@ class JazzUploadImage
         var image_title = '';
 
         //20250406 var upload_image_html = UtilHtml.getDivElementIconStyleString(id_upload_image, image_styles_str, file_name_icon, image_width, event_fctn, image_title, tabs_two+1);
-        var upload_image_html = UtilHtml.getDivElementImageString(id_upload_image, image_styles_str, file_name_icon, 'Image', image_width, event_fctn, image_title, tabs_two+1)
+        var upload_image_html = UtilHtml.getDivElementImageString(id_div_upload_image, image_styles_str, file_name_icon, 'Image', image_width, event_fctn, image_title, tabs_two+1)
         
         var div_image_container_html = UtilHtml.getDivElementLeafStyleString(id_div_image_container, image_container_styles_str, upload_image_html, tabs_two);
 
@@ -783,7 +783,6 @@ class JazzUploadImage
 
     } // getIdDivImageContainer
 
-    /*20250406 QQQQQQQQQQQQQQQQQQQQ
     // Returns the <img> element
     static getElementUploadImage()
     {
@@ -794,19 +793,18 @@ class JazzUploadImage
         return img_elements[0];
 
     } // getElementUploadImage
-     QQQQ  20250406*/
 
     // Returns the the div element for upload <img>
-    static getElementUploadImage()
+    static getElementDivUploadImage()
     {
         return document.getElementById(JazzUploadImage.getIdDivUploadImage());
 
-    } // getElementUploadImage
+    } // getElementDivUploadImage
 
     // Returns the identity string for the upload <img>
     static getIdDivUploadImage()
     {
-        return 'id_jazzuploadimage_upload_image';
+        return 'id_div_jazzuploadimage_upload_image';
 
     } // getIdUploadImage
 

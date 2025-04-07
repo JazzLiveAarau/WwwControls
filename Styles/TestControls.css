@@ -39,9 +39,9 @@ Defines styles for the test application of the member login-logout menu
 
 .cl_div_control_upload_image
 {
-    border: solid 2px blue; 
-    width: 200px;
+    border: solid 1px black; 
     height: 220px;
+    width: 200px;
     margin-left: 50px;
     margin-top: 10px;
 }

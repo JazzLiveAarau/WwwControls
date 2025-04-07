@@ -1,5 +1,5 @@
 // File: Main.js
-// Date: 2025-01-06
+// Date: 2025-04-06
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -31,6 +31,9 @@ var g_toolbar = null;
 // Object of class DisplayImage
 var g_display_image = null;
 
+// Instance of class JazzUploadImage
+var g_upload_image_object = null;
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// End Global Parameters ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +45,9 @@ var g_display_image = null;
 // Main (onload) function for the controls test application 
 function initTestControls()
 {
-    createDisplayImage();
+   
+    
+    // createDisplayImage();
 
     // createTextBox();
 
@@ -50,7 +55,7 @@ function initTestControls()
 
     // createIcon();
 
-    // createControlUploadImageToServer();
+    createControlUploadImageToServer();
  
 
 } // initTestControls
@@ -63,6 +68,8 @@ function initTestControls()
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Start Create Controls And Events ////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
+
+
 
 // Create DisplayImage object
 function createDisplayImage()
@@ -409,8 +416,18 @@ function createControlUploadImageToServer()
 
     // Possibility to change name: g_upload_image_object.setUploadFileUrl(full_server_file_name);
 
+    
+
 
 } // createControlUploadImageToServer
+
+function onClickReplaceDefaultImage()
+{
+    var full_server_file_name = 'https://jazzliveaarau.ch/WwwControls/UploadedImages/ChangedFileName.jpg';
+
+    g_upload_image_object.changeDefaultImageFile(full_server_file_name);
+
+} // onClickReplaceDefaultImage
 
 // Callback function: An image was loaded to the <img> element that displays the uploaded image
 // b_default_img equals true: The default image is loaded (normally perhaps do nothing)
@@ -624,7 +641,7 @@ function getJazzGuestArray()
 // /www/JazzScripts/. The directory name is defined in file MergeControls.php.
 function eventMergeFiles()
 {
-    var file_name = 'Controls_20240317.js';
+    var file_name = 'Controls_20250406.js';
 
     var reservation_file_name = 'Controls_Reservation_20240317.js';
 

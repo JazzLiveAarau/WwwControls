@@ -1,5 +1,5 @@
 // File: JazzUploadImage.js
-// Date: 2024-02-28
+// Date: 2025-04-06
 // Author: Gunnar Lidén
 
 // Content
@@ -263,7 +263,7 @@ class JazzUploadImage
     } // addEventListenerForInputFileElement
 
     // Adds an event handler to the <img> element that displays the uploaded image
-    addEventListenerForUploadImageElement(i_upload_image_object, i_input_data)
+    addEventListenerForUploadImageElement(i_upload_image_object, i_input_data) 
     {
         var upload_image_el = JazzUploadImage.getElementUploadImage();
 
@@ -611,7 +611,9 @@ class JazzUploadImage
 
         var id_div_input = JazzUploadImage.getIdDivFileInput();
 
-        var input_styles_str = 'overflow: hidden; clear: both; text-align: center;';
+        //20250406 var input_styles_str = 'overflow: hidden; clear: both; text-align: center;';
+
+        var input_styles_str = 'overflow: hidden; clear: both; margin-top: 5px; text-align: center; height: 14%';
 
         var div_input_inner_html = this.getInputHtml();
 
@@ -619,7 +621,9 @@ class JazzUploadImage
 
         var id_div_label_name = JazzUploadImage.getIdDivFileName();
 
-        var file_name_styles_str = 'border: solid 1px grey; margin-top: 10px; clear: both;text-align: center;';
+        //20250406 var file_name_styles_str = 'border: solid 1px grey; margin-top: 10px; clear: both;text-align: center;';
+
+        var file_name_styles_str = 'border: solid 1px grey; margin-top: 10px; margin-left: 2%; margin-right: 2%;  clear: both;text-align: center; height: 9%';
 
         var div_file_name_inner_html = '...'; 
 
@@ -627,7 +631,10 @@ class JazzUploadImage
 
         var id_div_image_container = JazzUploadImage.getIdDivImageContainer();
 
-        var image_container_styles_str = 'border: solid 1px blue;  margin-top: 10px; clear: both;'; // TODO Must have a border, otherwise it disappears ??
+        //20250406 var image_container_styles_str = 'border: solid 1px blue;  margin-top: 10px; clear: both;'; // TODO Must have a border, otherwise it disappears ??
+
+        // It is necessary to set the height. Calling changeDefaultImageFile multiple times made the container height smaller and smaller
+        var image_container_styles_str = ' margin-top: 10px; height: 60%; clear: both;'; 
 
         var id_upload_image = JazzUploadImage.getIdDivUploadImage();
 
@@ -641,8 +648,9 @@ class JazzUploadImage
 
         var image_title = '';
 
-        var upload_image_html = UtilHtml.getDivElementIconStyleString(id_upload_image, image_styles_str, file_name_icon, image_width, event_fctn, image_title, tabs_two+1);
-
+        //20250406 var upload_image_html = UtilHtml.getDivElementIconStyleString(id_upload_image, image_styles_str, file_name_icon, image_width, event_fctn, image_title, tabs_two+1);
+        var upload_image_html = UtilHtml.getDivElementImageString(id_upload_image, image_styles_str, file_name_icon, 'Image', image_width, event_fctn, image_title, tabs_two+1)
+        
         var div_image_container_html = UtilHtml.getDivElementLeafStyleString(id_div_image_container, image_container_styles_str, upload_image_html, tabs_two);
 
         ret_html = ret_html + div_input_html;
@@ -705,6 +713,27 @@ class JazzUploadImage
         
     } // getInputHtml
 
+    // Set image and image file name for an image on the server, i.e. not an uploaded image
+    // 1. Get elements image and file name container.
+    //    Call of getElementDivImageContainer and getElementDivFileName
+    // 2. Get only the file name and set the file name
+    //    Call of UtilServer.getFileName and set innerHTML for the file name container
+    // 3. Replace the image with the input window
+    //    Call of UtilImage.replaceImageInDivContainer
+    changeDefaultImageFile(i_url_image)
+    {
+        var image_container_el = JazzUploadImage.getElementDivImageContainer();
+
+        var file_name_container = JazzUploadImage.getElementDivFileName();
+
+        var file_name = UtilServer.getFileName(i_url_image);
+
+        file_name_container.innerHTML = file_name;
+
+        UtilImage.replaceImageInDivContainer(i_url_image, image_container_el);
+
+    } // changeDefaultImageFile
+
     // Returns the <input> element
     static getElementFileInput()
     {
@@ -754,6 +783,7 @@ class JazzUploadImage
 
     } // getIdDivImageContainer
 
+    /*20250406 QQQQQQQQQQQQQQQQQQQQ
     // Returns the <img> element
     static getElementUploadImage()
     {
@@ -764,9 +794,10 @@ class JazzUploadImage
         return img_elements[0];
 
     } // getElementUploadImage
+     QQQQ  20250406*/
 
     // Returns the the div element for upload <img>
-    static getElementDivUploadImage()
+    static getElementUploadImage()
     {
         return document.getElementById(JazzUploadImage.getIdDivUploadImage());
 

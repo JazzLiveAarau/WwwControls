@@ -1,5 +1,5 @@
 // File: Main.js
-// Date: 2025-04-06
+// Date: 2025-04-10
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -434,13 +434,15 @@ function onClickReplaceDefaultImage()
 // b_default_img equals false: The selected picture is loaded/displayed. The user can continue
 function callbackImageIsUploaded(b_default_img)
 {
+    var n_images = g_upload_image_object.getNumberOfUploadedImages();
+
     if (b_default_img)
     {
-        console.log("callbackImageIsUploaded Default image was loaded");
+        console.log("callbackImageIsUploaded Default image was loaded n_images= " + n_images.toString());
     }
     else
     {
-        console.log("callbackImageIsUploaded Selected image was loaded");
+        console.log("callbackImageIsUploaded Selected image was loaded n_images= " + n_images.toString());
 
         // alert("callbackImageIsUploaded Selected image was loaded");
     }

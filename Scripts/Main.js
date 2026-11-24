@@ -1,5 +1,5 @@
 // File: Main.js
-// Date: 2025-04-10
+// Date: 2026-11-24
 // Author: Gunnar Lidén
 
 // Inhalt
@@ -643,7 +643,7 @@ function getJazzGuestArray()
 // /www/JazzScripts/. The directory name is defined in file MergeControls.php.
 function eventMergeFiles()
 {
-    var file_name = 'Controls_20250406.js';
+    var file_name = 'Controls_20261124.js';
 
     var reservation_file_name = 'Controls_Reservation_20240317.js';
 

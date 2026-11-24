@@ -1,5 +1,5 @@
 // File: JazzUploadImage.js
-// Date: 2025-04-10
+// Date: 2026-11-24
 // Author: Gunnar Lidén
 
 // Content
@@ -179,7 +179,7 @@ class JazzUploadImage
         // The container element object
         this.m_el_div_container = null;
 
-       // Number of uploaded images
+       // Number of uploaded images after setting of the default image (always 0 or 1)
        this.m_n_uploaded_images = 0;
 
         // Initialization
@@ -221,7 +221,7 @@ class JazzUploadImage
     // Set the full server file name (URL) for the uploaded image
     // i_full_server_file_name: Absolut full path URL
     // Please note that the URL can be set also as input data to JazzUtilImageInput
-    // (Pameters i_upload_file_name, i_upload_file_extension, i_upload_path)
+    // (Parameters i_upload_file_name, i_upload_file_extension, i_upload_path)
     setUploadFileUrl(i_full_server_file_name)
     { 
         if (!UtilServer.isAbsolutePath(i_full_server_file_name))
@@ -246,7 +246,7 @@ class JazzUploadImage
 
     } // getImageFileFullName
 
-    // Get number of uploaded images after initialization
+    // Get number of uploaded images after setting of the default image (0 or 1)
     getNumberOfUploadedImages()
     {
         return this.m_n_uploaded_images;
@@ -298,11 +298,18 @@ class JazzUploadImage
         if (uploaded_img_url == i_input_data.m_default_img )
         {
             b_default_image = true;
+
+            this.m_n_uploaded_images = 0;
         }
         else
         {
             this.m_n_uploaded_images = this.m_n_uploaded_images + 1;
         }
+
+        var file_name = UtilServer.getFileName(uploaded_img_url);
+
+        console.log("JazzUploadImage.imageIsLoaded file_name=" + file_name + " b_default_image=" + b_default_image + 
+            " m_n_uploaded_images=" + this.m_n_uploaded_images);
 
         i_input_data.m_img_loaded_callback(b_default_image);
 
@@ -403,7 +410,7 @@ class JazzUploadImage
 
             JazzUploadImage.debugAppend("userSelectedFiles The input image was compressed");
 
-            UtilServer.uploadFile(image_file, full_server_file_name, JazzUploadImage.displayUploadedImage);
+            UtilServer.uploadFile(compressed_file, full_server_file_name, JazzUploadImage.displayUploadedImage);
         }
 
     } // userSelectedFiles

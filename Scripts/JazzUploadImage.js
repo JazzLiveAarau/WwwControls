@@ -183,7 +183,7 @@ class JazzUploadImage
         // The container element object
         this.m_el_div_container = null;
 
-       // Number of uploaded images after setting of the default image (always 0 or 1)
+       // Number of uploaded images after setting of the default image 
        this.m_n_uploaded_images = 0;
 
         // Initialization
@@ -250,7 +250,7 @@ class JazzUploadImage
 
     } // getImageFileFullName
 
-    // Get number of uploaded images after setting of the default image (0 or 1)
+    // Get number of uploaded images that not are the default image 
     getNumberOfUploadedImages()
     {
         return this.m_n_uploaded_images;
@@ -307,7 +307,7 @@ class JazzUploadImage
         {
             b_default_image = true;
 
-            this.m_n_uploaded_images = 0;
+            //QQQQQ this.m_n_uploaded_images = 0;
         }
         else
         {
@@ -417,6 +417,9 @@ class JazzUploadImage
             full_server_file_name = i_input_data.getImageFileFullName();
 
             JazzUploadImage.debugAppend("userSelectedFiles The input image was compressed");
+
+            var compressed_size = compressed_file.size/1000000.0;
+            console.log("userSelectedFiles Compressed MByte image size= " + compressed_size.toString());
 
             UtilServer.uploadFile(compressed_file, full_server_file_name, JazzUploadImage.displayUploadedImage);
         }

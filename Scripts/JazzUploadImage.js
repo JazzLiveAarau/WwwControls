@@ -21,11 +21,12 @@
 // i_img_loaded_callback:   Callback function when an image is loaded (displayed)
 //                          A boolean parameter tells if it is the default image that
 //                          was loaded
+// i_img_selected_callback: Callback function when an image is selected by the user
 class JazzUploadImageInput
 {
     // Creates the instance of the class
     constructor(i_upload_file_name, i_upload_file_extension, i_upload_path, i_image_max_size_mb, 
-                i_default_img, i_caption_select_img, i_img_loaded_callback)
+                i_default_img, i_caption_select_img, i_img_loaded_callback, i_img_selected_callback)
     {
         // Name of the upload file without extension, e.g. Image_2024mmddhhmmss
         this.m_upload_file_name = i_upload_file_name;
@@ -47,6 +48,9 @@ class JazzUploadImageInput
 
         // Callback function when image has been loaded
         this.m_img_loaded_callback = i_img_loaded_callback;
+
+        // Event function user selected an image
+        this.m_img_selected_callback = i_img_selected_callback;
     }
 
      // Set the server absolute path for m_upload_file_name
@@ -295,7 +299,11 @@ class JazzUploadImage
 
         var b_default_image = false;
 
-        if (uploaded_img_url == i_input_data.m_default_img )
+        var file_name = UtilServer.getFileName(uploaded_img_url);
+
+        var file_name_default = UtilServer.getFileName(i_input_data.m_default_img);
+
+        if (file_name == file_name_default )
         {
             b_default_image = true;
 
@@ -305,8 +313,6 @@ class JazzUploadImage
         {
             this.m_n_uploaded_images = this.m_n_uploaded_images + 1;
         }
-
-        var file_name = UtilServer.getFileName(uploaded_img_url);
 
         console.log("JazzUploadImage.imageIsLoaded file_name=" + file_name + " b_default_image=" + b_default_image + 
             " m_n_uploaded_images=" + this.m_n_uploaded_images);
@@ -328,6 +334,8 @@ class JazzUploadImage
 
             return;
         }
+
+        i_input_data.m_img_selected_callback();
 
         this.resetDefaultImage();
 

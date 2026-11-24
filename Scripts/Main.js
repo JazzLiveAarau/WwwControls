@@ -408,7 +408,7 @@ function createControlUploadImageToServer()
     var caption_select_img = 'Bild wählen';
 
     var input_data = new JazzUploadImageInput(upload_file_name, upload_file_extension, upload_path, 
-            image_max_size_mb, default_img, caption_select_img, callbackImageIsUploaded);
+            image_max_size_mb, default_img, caption_select_img, callbackImageIsUploaded, onImageSelected);
 
     g_upload_image_object = new JazzUploadImage(getIdDivImageContainer(), input_data);
 
@@ -420,6 +420,14 @@ function createControlUploadImageToServer()
 
 
 } // createControlUploadImageToServer
+
+// User selected an image
+// This function will be called when the user selects an image from their device
+function onImageSelected()
+{
+    console.log("onImageSelected An image was selected by the user");
+
+} // onImageSelected
 
 function onClickReplaceDefaultImage()
 {

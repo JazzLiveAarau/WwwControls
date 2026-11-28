@@ -364,7 +364,8 @@ class JazzUploadImage
     
         var original_size = image_file.size/1000000.0;
 
-        console.log("Original image size is " + original_size.toString());
+        JazzUploadImage.debugAppend("userSelectedFiles Original MByte image size is " + original_size.toString());
+        console.log("userSelectedFiles Original MByte image size is " + original_size.toString());
 
         var full_server_file_name = '';
 
@@ -400,6 +401,9 @@ class JazzUploadImage
             }
             else
             {
+                JazzUploadImage.debugAppend("JazzUploadImage.userSelectedFiles The input image was not compressed. File name= " + full_server_file_name);
+                console.log("JazzUploadImage.userSelectedFiles The input image was not compressed. File name= " + full_server_file_name);
+                
                 UtilServer.uploadFile(image_file, full_server_file_name, JazzUploadImage.displayUploadedImage);
             }
             
@@ -416,9 +420,10 @@ class JazzUploadImage
 
             full_server_file_name = i_input_data.getImageFileFullName();
 
-            JazzUploadImage.debugAppend("userSelectedFiles The input image was compressed");
+            JazzUploadImage.debugAppend("userSelectedFiles The input image was compressed. File name= " + full_server_file_name);
 
             var compressed_size = compressed_file.size/1000000.0;
+            JazzUploadImage.debugAppend("userSelectedFiles Compressed MByte image size= " + compressed_size.toString());
             console.log("userSelectedFiles Compressed MByte image size= " + compressed_size.toString());
 
             UtilServer.uploadFile(compressed_file, full_server_file_name, JazzUploadImage.displayUploadedImage);
